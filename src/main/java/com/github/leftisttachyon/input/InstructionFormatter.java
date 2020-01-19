@@ -63,13 +63,13 @@ public class InstructionFormatter {
     }
 
     /**
-     * Parses the given line into an {@link Instruction}.
+     * Parses the given line into an {@link SimpleInstruction}.
      *
      * @param line the line to parse
-     * @return an {@link Instruction} that represents the given line. If the line cannot be parsed, then {@code null}
+     * @return an {@link SimpleInstruction} that represents the given line. If the line cannot be parsed, then {@code null}
      * is returned.
      */
-    public Instruction parse(String line) {
+    public SimpleInstruction parse(String line) {
         Matcher matcher = format.matcher(line);
 
         if (!matcher.matches()) {
@@ -81,6 +81,6 @@ public class InstructionFormatter {
             inputMap.put(s, matcher.group(s));
         }
 
-        return new Instruction(inputMap);
+        return new SimpleInstruction(inputMap);
     }
 }

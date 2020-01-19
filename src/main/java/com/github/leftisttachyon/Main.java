@@ -1,6 +1,7 @@
 package com.github.leftisttachyon;
 
-import com.github.leftisttachyon.input.Playback;
+import com.github.leftisttachyon.input.SimplePlayback;
+import com.github.leftisttachyon.input.compiled.CompiledPlayback;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -26,16 +27,24 @@ public class Main {
         File file = new File("test.txt");
         log.trace("File canonical path: {}", file.getCanonicalPath());
 
-        Playback playback = Playback.createPlayback(file);
-        log.trace("Playback object: {}", playback);
+        SimplePlayback simplePlayback = SimplePlayback.createPlayback(file);
+        log.trace("SimplePlayback object: {}", simplePlayback);
 
         Robot r = new Robot();
 
-        playback.execute(r, 16);
-//        playback.executeQuick(r);
+        // simplePlayback.execute(r, 16);
+
+        CompiledPlayback compiledPlayback = simplePlayback.compile();
+        log.info("CompiledPlayback object: {}", compiledPlayback);
+
+        compiledPlayback.execute(r, 16);
+
+//        simplePlayback.executeQuick(r);
 
         // testing space lmao
         // aaaaaa
         // aaaaaabb
+        // aaaaaabb
+        //
     }
 }

@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fragment.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledInstruction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledPlayback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Instruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Playback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Playback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimpleInstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/InstructionFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/InstructionFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Playback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Instruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Instruction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Playback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Playback.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Instruction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/InstructionFormatter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/InstructionFormatter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Playback.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +25,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -50,6 +52,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
   <component name="RecentsManager">
@@ -112,42 +115,54 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="240" y="327" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579399825292" />
-    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser" timestamp="1579400458368">
+    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser" timestamp="1579407204427">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579400458368" />
+    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579407204427" />
+    <state x="536" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579405099364">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="536" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579405099364" />
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579404399202">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579404399202" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1579404376180">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1579407793562">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579404376180" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1579404376180">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1579407793562">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579404376180" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1579404376179">
+    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1579407793562">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579404376179" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1579404376180">
+    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1579407793562">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579404376180" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
     <state x="0" y="167" key="SettingsEditor" timestamp="1579383465751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="167" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579383465751" />
-    <state x="201" y="268" width="570" height="524" key="StructurePopup" timestamp="1579400989108">
+    <state x="201" y="268" width="570" height="524" key="StructurePopup" timestamp="1579404863055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="201" y="268" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579400989108" />
+    <state x="201" y="268" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579404863055" />
+    <state x="776" y="299" key="chooseDestDirectoryDialog" timestamp="1579404969702">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="776" y="299" key="chooseDestDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579404969702" />
     <state x="210" y="280" key="extract.method.dialog" timestamp="1579402284896">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="210" y="280" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579402284896" />
+    <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1579406117291">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579406117291" />
     <state x="136" y="244" width="672" height="677" key="run.anything.popup" timestamp="1579389183784">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

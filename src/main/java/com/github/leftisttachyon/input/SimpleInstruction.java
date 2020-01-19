@@ -1,5 +1,6 @@
 package com.github.leftisttachyon.input;
 
+import com.github.leftisttachyon.input.compiled.CompiledInstruction;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,7 +24,8 @@ import static java.awt.event.KeyEvent.*;
  */
 @Slf4j
 @Data
-public class Instruction {
+@Setter(AccessLevel.NONE)
+public class SimpleInstruction {
     /**
      * A {@link Set} of {@link String}s that denote "no key press here."
      */
@@ -62,17 +65,7 @@ public class Instruction {
     /**
      * The map of button presses and mouse movements to do
      */
-    @Setter(value = AccessLevel.NONE)
     private final HashMap<String, String> inputMap;
-
-    /**
-     * Creates a new Instruction object.
-     *
-     * @param inputMap the map of inputs
-     */
-    public Instruction(HashMap<String, String> inputMap) {
-        this.inputMap = inputMap;
-    }
 
     /**
      * Executes this instruction.<br/>
@@ -81,7 +74,7 @@ public class Instruction {
      * @param r         the {@link Robot} to execute these instructions with
      * @param preceding the preceding instructions
      */
-    public void execute(Robot r, Instruction preceding) {
+    public void execute(Robot r, SimpleInstruction preceding) {
         if (preceding != null &&
                 !preceding.inputMap.keySet().equals(inputMap.keySet())) {
             throw new IllegalArgumentException("Invalid preceding instructions");
@@ -147,8 +140,95 @@ public class Instruction {
         }
     }
 
-    private int getKeyCode(String code) {
-        switch (code) {
+    /**
+     * Compiles this instruction.
+     *
+     * @param preceding the preceding instructions
+     * @return a compiled version of these instructions.
+     * @see CompiledInstruction
+     */
+    public CompiledInstruction compile(SimpleInstruction preceding) {
+        if (preceding != null &&
+                !preceding.inputMap.keySet().equals(inputMap.keySet())) {
+            throw new IllegalArgumentException("Invalid preceding instructions");
+        }
+
+        int x = -1, y = -1;
+        Set<Integer> mP = new HashSet<>(), mR = new HashSet<>(),
+                kP = new HashSet<>(), kR = new HashSet<>();
+
+        for (Map.Entry<String, String> inputEntry : inputMap.entrySet()) {
+            String key = inputEntry.getKey(),
+                    currInput = inputEntry.getValue(),
+                    prevInput = preceding == null ? null : preceding.inputMap.get(key);
+
+            if ("MX".equals(key)) {
+                if (!NO_INPUT.contains(currInput)) {
+                    x = Integer.parseInt(currInput);
+                }
+            } else if ("MY".equals(key)) {
+                if (!NO_INPUT.contains(currInput)) {
+                    y = Integer.parseInt(currInput);
+                }
+            } else if (key.startsWith("K")) {
+                log.trace("{} -> {}", prevInput, currInput);
+                if (prevInput != null && prevInput.equals(currInput)) {
+                    continue;
+                }
+
+                int keyCode = getKeyCode(key.substring(1));
+                log.trace("Dealing with {} / keycode {}", key, keyCode);
+                if (NO_INPUT.contains(currInput)) {
+                    if (prevInput == null || NO_INPUT.contains(prevInput)) {
+                        log.trace("Continuing");
+                        continue;
+                    }
+
+                    kR.add(keyCode);
+                } else {
+                    kP.add(keyCode);
+                }
+            } else if (key.startsWith("M")) {
+                if (prevInput != null && prevInput.equals(currInput)) {
+                    continue;
+                }
+
+                int button = Integer.parseInt(key.substring(1));
+                if (NO_INPUT.contains(currInput)) {
+                    if (prevInput == null || NO_INPUT.contains(prevInput)) {
+                        log.trace("Continuing: {} -> {}", prevInput, currInput);
+                        continue;
+                    }
+
+                    mR.add(button);
+                } else {
+                    mP.add(button);
+                }
+            } else {
+                throw new IllegalArgumentException("Unknown instruction key: " + key);
+            }
+        }
+
+        log.trace("x: {}, y: {}", x, y);
+
+        Point p;
+        if (x != -1 && y != -1) {
+            p = new Point(X_OFFSET + x, Y_OFFSET + y);
+        } else {
+            p = null;
+        }
+
+        return new CompiledInstruction(p, mP, mR, kP, kR);
+    }
+
+    /**
+     * From the given word representation of a key, determines and returns the keycode
+     *
+     * @param key the word representation of a key
+     * @return the associated keycode
+     */
+    private int getKeyCode(String key) {
+        switch (key) {
             case "SHIFT":
                 return VK_SHIFT;
             case "TAB":
@@ -174,16 +254,16 @@ public class Instruction {
             case "ENTER":
                 return VK_ENTER;
             default:
-                if (code.length() == 1) {
-                    char c = code.charAt(0);
+                if (key.length() == 1) {
+                    char c = key.charAt(0);
                     int keyCode = KeyEvent.getExtendedKeyCodeForChar(c);
                     if (keyCode == VK_UNDEFINED) {
-                        throw new IllegalArgumentException("Unknown instruction key: " + code);
+                        throw new IllegalArgumentException("Unknown instruction key: " + key);
                     } else {
                         return keyCode;
                     }
                 } else {
-                    throw new IllegalArgumentException("Unknown instruction key: " + code);
+                    throw new IllegalArgumentException("Unknown instruction key: " + key);
                 }
         }
     }
@@ -191,10 +271,10 @@ public class Instruction {
     /**
      * {@inheritDoc}
      *
-     * @return a {@link String} representation of this {@link Instruction} object.
+     * @return a {@link String} representation of this {@link SimpleInstruction} object.
      */
     @Override
     public String toString() {
-        return "[Instruction " + inputMap + ']';
+        return "[SimpleInstruction " + inputMap + ']';
     }
 }
