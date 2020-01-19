@@ -1,5 +1,6 @@
 package com.github.leftisttachyon;
 
+import com.github.leftisttachyon.input.SimpleInstruction;
 import com.github.leftisttachyon.input.SimplePlayback;
 import com.github.leftisttachyon.input.compiled.CompiledPlayback;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ public class Main {
      * @throws AWTException if the {@link Robot} could not be created successfully
      */
     public static void main(String[] args) throws IOException, AWTException {
+        SimpleInstruction.setOffset(new Point(8, 24));
+
         File file = new File("test.txt");
         log.trace("File canonical path: {}", file.getCanonicalPath());
 
@@ -35,16 +38,14 @@ public class Main {
         // simplePlayback.execute(r, 16);
 
         CompiledPlayback compiledPlayback = simplePlayback.compile();
-        log.info("CompiledPlayback object: {}", compiledPlayback);
+        log.trace("CompiledPlayback object: {}", compiledPlayback);
 
         compiledPlayback.execute(r, 16);
 
 //        simplePlayback.executeQuick(r);
 
         // testing space lmao
-        // aaaaaa
         // aaaaaabb
-        // aaaaaabb
-        //
+        // abababababababababababababababababababab
     }
 }

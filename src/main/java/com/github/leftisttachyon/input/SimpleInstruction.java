@@ -150,7 +150,8 @@ public class SimpleInstruction {
     public CompiledInstruction compile(SimpleInstruction preceding) {
         if (preceding != null &&
                 !preceding.inputMap.keySet().equals(inputMap.keySet())) {
-            throw new IllegalArgumentException("Invalid preceding instructions");
+            throw new IllegalArgumentException("Invalid preceding instructions: " + toString() + " vs "
+                    + preceding.toString());
         }
 
         int x = -1, y = -1;
@@ -218,7 +219,8 @@ public class SimpleInstruction {
             p = null;
         }
 
-        return new CompiledInstruction(p, mP, mR, kP, kR);
+        return new CompiledInstruction(p, mP.isEmpty() ? null : mP, mR.isEmpty() ? null : mR,
+                kP.isEmpty() ? null : kP, kR.isEmpty() ? null : kR);
     }
 
     /**

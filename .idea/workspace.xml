@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledInstruction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledPlayback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimpleInstruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/InstructionFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/InstructionFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/Playback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimpleInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimpleInstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledInstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledPlayback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledPlayback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Instruction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/InstructionFormatter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/InstructionFormatter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/Playback.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimpleInstruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimpleInstruction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledInstruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledInstruction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledPlayback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledPlayback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,30 +126,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579404399202" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1579407793562">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1579464750547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1579407793562">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1579464750547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1579407793562">
+    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1579464750547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1579407793562">
+    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1579464750547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579407793562" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
     <state x="0" y="167" key="SettingsEditor" timestamp="1579383465751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="167" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579383465751" />
-    <state x="201" y="268" width="570" height="524" key="StructurePopup" timestamp="1579404863055">
+    <state x="201" y="268" width="570" height="524" key="StructurePopup" timestamp="1579463464873">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="201" y="268" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579404863055" />
+    <state x="201" y="268" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579463464873" />
     <state x="776" y="299" key="chooseDestDirectoryDialog" timestamp="1579404969702">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -167,5 +166,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="136" y="244" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579389183784" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1579463377419">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579463377419" />
   </component>
 </project>

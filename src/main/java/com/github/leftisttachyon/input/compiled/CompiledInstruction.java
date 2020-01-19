@@ -44,18 +44,26 @@ public class CompiledInstruction {
      * @param r the {@link Robot} object to execute these instructions with
      */
     public void execute(Robot r) {
-        for (int i : mousePress) {
-            r.mousePress(i);
+        if (mousePress != null && !mousePress.isEmpty()) {
+            for (int i : mousePress) {
+                r.mousePress(i);
+            }
         }
-        for (int i : mouseRelease) {
-            r.mouseRelease(i);
+        if (mouseRelease != null && !mouseRelease.isEmpty()) {
+            for (int i : mouseRelease) {
+                r.mouseRelease(i);
+            }
         }
 
-        for (int i : keyPress) {
-            r.keyPress(i);
+        if (keyPress != null && !keyPress.isEmpty()) {
+            for (int i : keyPress) {
+                r.keyPress(i);
+            }
         }
-        for (int i : keyRelease) {
-            r.keyRelease(i);
+        if (keyRelease != null && !keyRelease.isEmpty()) {
+            for (int i : keyRelease) {
+                r.keyRelease(i);
+            }
         }
 
         if (mouseCoords != null) {

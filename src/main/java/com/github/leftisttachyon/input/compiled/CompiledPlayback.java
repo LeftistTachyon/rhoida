@@ -50,26 +50,14 @@ public class CompiledPlayback {
 
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleAtFixedRate(() -> {
-            double start = System.nanoTime(), total, betweenTotal = start - prevEnd[0];
-            betweenTotal /= 1_000_000;
-            log.trace("Between instructions: {} ms", String.format("%.3f", betweenTotal));
-
-            try {
-                if (iter.hasNext()) {
-                    CompiledInstruction curr = iter.next();
-                    curr.execute(r);
-                } else {
-                    ses.shutdown();
-                    log.info("Shutdown initiated");
-                }
-            } catch (Exception e) {
-                log.error("While executing the instruction set, an exception was thrown.", e);
+            if (iter.hasNext()) {
+                CompiledInstruction curr = iter.next();
+                log.trace("Executing {} ...", curr);
+                curr.execute(r);
+            } else {
+                ses.shutdown();
+                log.info("Shutdown initiated");
             }
-
-            total = (prevEnd[0] = System.nanoTime()) - start;
-            total /= 1_000_000;
-            log.trace("Executing one instruction: {} ms", String.format("%.3f", total));
-            log.info("Total for frame: {} ms", String.format("%.3f", total + betweenTotal));
         }, 0, millis, TimeUnit.MILLISECONDS);
     }
 

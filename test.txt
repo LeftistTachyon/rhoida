@@ -1,14 +1,9 @@
-!FORMAT: <MX> <MY> <KA> <KB>
-REPEAT 60
-    . . . .
-REPEAT 2
-    REPEAT 2
-        0 0 A .
-        100 0 A .
-        100 100 . .
-        0 100 . .
-    500 500 _ .
-    500 600 - .
-    600 600 A .
-    600 500 . .
-INCLUDE fragment.txt
+!FORMAT: <KA> <KB>
+REPEAT 10
+    . .
+REPEAT 20
+    A .
+    . B
+# INCLUDE fragment.txt
+REPEAT 10
+    . .
