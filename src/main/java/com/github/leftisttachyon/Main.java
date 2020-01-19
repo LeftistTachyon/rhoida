@@ -31,9 +31,11 @@ public class Main {
 
         Robot r = new Robot();
 
-        playback.execute(r, 100);
+        playback.execute(r, 16);
+//        playback.executeQuick(r);
 
         // testing space lmao
         // aaaaaa
+        // aaaaaabb
     }
 }

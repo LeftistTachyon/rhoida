@@ -1,12 +1,14 @@
-!TYPE: DEFAULT
-!FORMAT: <MX> <MY> <KA>
+!FORMAT: <MX> <MY> <KA> <KB>
+REPEAT 60
+    . . . .
 REPEAT 2
     REPEAT 2
-        0 0 A
-        100 0 A
-        100 100 .
-        0 100 .
-    500 500 _
-    500 600 -
-    600 600 A
-    600 500 .
+        0 0 A .
+        100 0 A .
+        100 100 . .
+        0 100 . .
+    500 500 _ .
+    500 600 - .
+    600 600 A .
+    600 500 . .
+INCLUDE fragment.txt

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,23 +76,6 @@ public class Playback {
         try (BufferedReader in = new BufferedReader(new FileReader(toParse))) {
             // read the header
             String line = in.readLine();
-            int fileType;
-            if (line == null || !line.startsWith("!TYPE: ")) {
-                throw new InvalidFileFormatException("Invalid or missing type declaration");
-            } else {
-                switch (line.substring(7)) {
-                    case "DEFAULT":
-                        fileType = 0;
-                        break;
-                    case "FRAGMENT":
-                        fileType = 1;
-                        break;
-                    default:
-                        throw new InvalidFileFormatException("Invalid type in type declaration");
-                }
-            }
-
-            line = in.readLine();
             InstructionFormatter format;
             if (line == null || !line.startsWith("!FORMAT: ")) {
                 throw new InvalidFileFormatException("Invalid or missing format declaration");
@@ -100,7 +84,7 @@ public class Playback {
             }
 
             // great, now start reading the file's true contents
-            instructions = readIndented(in, format, 0, toParse.getPath(), fileType);
+            instructions = readIndented(in, format, 0, toParse.getPath());
         } catch (IOException e) {
             log.warn("While reading the file, an IOException was thrown", e);
         }
@@ -113,13 +97,12 @@ public class Playback {
      * @param format           the {@link InstructionFormatter} object used to parse information
      * @param indentationLevel the amount of indentation this block is in
      * @param filePath         the path of the file that is being worked with
-     * @param fileType         the type of file that is being worked with
      * @return an {@link ArrayList} of {@link Instruction}s to execute
      * @throws IOException if something goes wrong while reading the file
      * @see Instruction
      */
     private ArrayList<Instruction> readIndented(BufferedReader in, InstructionFormatter format,
-                                                final int indentationLevel, final String filePath, final int fileType)
+                                                final int indentationLevel, final String filePath)
             throws IOException {
         ArrayList<Instruction> output = new ArrayList<>();
 
@@ -127,6 +110,7 @@ public class Playback {
         while ((line = in.readLine()) != null) {
             String content = line.stripLeading();
             log.trace("content: {}", content);
+
             if (line.isBlank() || content.startsWith("#")) {
                 continue;
             }
@@ -136,27 +120,31 @@ public class Playback {
                 throw new InvalidFileFormatException("Invalid indentation");
             }
 
+            log.trace("Indentation math: compare {} to {}", firstNonSpace / 4, indentationLevel);
+
             if (firstNonSpace / 4 < indentationLevel) {
+                in.reset();
+
                 break;
             }
 
             // guaranteed: indentationLevel * 4 == firstNonSpace
             if (content.startsWith("INCLUDE ")) {
-                if (fileType == 0) {
-                    Playback inner = Playback.createPlayback(Paths.get(filePath, content.substring(8)).toFile());
-                    output.addAll(inner.instructions);
-                } else {
-                    throw new InvalidFileFormatException("Fragments cannot have include statements");
-                }
+                Path path = Paths.get(filePath, "..", content.substring(8));
+                log.trace("Fragment path: {}", path);
+                Playback inner = Playback.createPlayback(path.toFile());
+                output.addAll(inner.instructions);
             } else if (content.startsWith("REPEAT ")) {
                 int repeat = Integer.parseInt(content.substring(7));
-                ArrayList<Instruction> repeated = readIndented(in, format, indentationLevel + 1, filePath, fileType);
+                ArrayList<Instruction> repeated = readIndented(in, format, indentationLevel + 1, filePath);
                 for (int i = 0; i < repeat; i++) {
                     output.addAll(repeated);
                 }
             } else {
                 output.add(format.parse(content));
             }
+
+            in.mark(1_000);
         }
 
         return output;
@@ -197,15 +185,30 @@ public class Playback {
         Iterator<Instruction> iter = instructionIterator();
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         Instruction[] prev = new Instruction[1];
+        double[] prevEnd = {System.nanoTime()};
         ses.scheduleAtFixedRate(() -> {
-            if (iter.hasNext()) {
-                Instruction curr = iter.next();
-                curr.execute(r, prev[0]);
+            double start = System.nanoTime(), total, betweenTotal = start - prevEnd[0];
+            betweenTotal /= 1_000_000;
+            log.trace("Between instructions: {} ms", String.format("%.3f", betweenTotal));
 
-                prev[0] = curr;
-            } else {
-                ses.shutdown();
+            try {
+                if (iter.hasNext()) {
+                    Instruction curr = iter.next();
+                    curr.execute(r, prev[0]);
+
+                    prev[0] = curr;
+                } else {
+                    ses.shutdown();
+                    log.info("Shutdown initiated");
+                }
+            } catch (Exception e) {
+                log.error("While executing the instruction set, an exception was thrown.", e);
             }
+
+            total = (prevEnd[0] = System.nanoTime()) - start;
+            total /= 1_000_000;
+            log.trace("Executing one instruction: {} ms", String.format("%.3f", total));
+            log.info("Total for frame: {} ms", String.format("%.3f", total + betweenTotal));
         }, 0, millis, TimeUnit.MILLISECONDS);
     }
 
