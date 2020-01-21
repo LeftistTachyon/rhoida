@@ -3,14 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/FileTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/FileTab.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimplePlayback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimplePlayback.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,25 +141,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579404399202" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1579637520758">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1579639268867">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579637520758" />
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
     <state width="914" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435945" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1579637520758">
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1579639268867">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579637520758" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
     <state width="914" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435944" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1579637520758">
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1579639268867">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579637520758" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
     <state width="914" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435944" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1579637520758">
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1579639268867">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579637520758" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
     <state width="914" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435945" />
     <state x="0" y="167" key="SettingsEditor" timestamp="1579383465751">
       <screen x="0" y="0" width="1920" height="1040" />

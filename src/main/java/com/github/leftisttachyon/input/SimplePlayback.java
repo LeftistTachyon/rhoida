@@ -93,7 +93,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
             }
 
             // great, now start reading the file's true contents
-            simpleInstructions = readIndented(in, format, 0, toParse.getPath());
+            simpleInstructions = readIndented(in, format, 0, toParse.getParentFile().getPath());
         } catch (IOException e) {
             log.warn("While reading the file, an IOException was thrown", e);
         }
@@ -140,7 +140,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
 
             // guaranteed: indentationLevel * 4 == firstNonSpace
             if (content.startsWith("INCLUDE ")) {
-                Path path = Paths.get(filePath, "..", content.substring(8));
+                Path path = Paths.get(filePath, content.substring(8));
                 log.trace("Fragment path: {}", path);
                 SimplePlayback inner = SimplePlayback.createPlayback(path.toFile());
                 output.addAll(inner.simpleInstructions);
