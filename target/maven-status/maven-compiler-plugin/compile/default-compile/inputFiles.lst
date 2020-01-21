@@ -1,5 +1,8 @@
-C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\InstructionFormat.java
+C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\SimpleInstruction.java
 C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\InvalidFileFormatException.java
-C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\Instruction.java
-C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\Playback.java
+C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\compiled\CompiledPlayback.java
+C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\compiled\CompiledInstruction.java
 C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\Main.java
+C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\InstructionFormatter.java
+C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\gui\MainFrame.java
+C:\Users\MiniJed\IdeaProjects\rhoida\src\main\java\com\github\leftisttachyon\input\SimplePlayback.java

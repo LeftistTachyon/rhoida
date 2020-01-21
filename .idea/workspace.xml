@@ -2,16 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/FileTab.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/TextLineNumber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimpleInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimpleInstruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledInstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledPlayback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/compiled/CompiledPlayback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/rhoida.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimpleInstruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimpleInstruction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledInstruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledInstruction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledPlayback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/compiled/CompiledPlayback.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/rhoida-1.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/rhoida-1.0.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +47,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1WaKC5k4qH3wJEbtaYnYSBYuZ4u" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,6 +57,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="extract.method.default.visibility" value="private" />
@@ -64,7 +74,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MainFrame">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.leftisttachyon.Main" />
       <module name="rhoida" />
@@ -78,8 +88,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.leftisttachyon.gui.MainFrame" />
+      <module name="rhoida" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.leftisttachyon.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MainFrame" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -109,15 +133,18 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="240" y="327" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579399825292">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="240" y="327" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579399825292" />
-    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser" timestamp="1579407204427">
+    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser" timestamp="1579570483320">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579407204427" />
+    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579570483320" />
     <state x="536" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579405099364">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -126,30 +153,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579404399202" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1579464750547">
+    <state width="914" height="279" key="GridCell.Tab.0.bottom" timestamp="1579580098191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1579464750547">
+    <state width="914" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579580098191" />
+    <state width="914" height="279" key="GridCell.Tab.0.center" timestamp="1579580098190">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1579464750547">
+    <state width="914" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579580098190" />
+    <state width="914" height="279" key="GridCell.Tab.0.left" timestamp="1579580098190">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1579464750547">
+    <state width="914" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579580098190" />
+    <state width="914" height="279" key="GridCell.Tab.0.right" timestamp="1579580098190">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579464750547" />
+    <state width="914" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579580098190" />
     <state x="0" y="167" key="SettingsEditor" timestamp="1579383465751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="167" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579383465751" />
-    <state x="201" y="268" width="570" height="524" key="StructurePopup" timestamp="1579463464873">
+    <state x="909" y="265" width="570" height="524" key="StructurePopup" timestamp="1579579858141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="201" y="268" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579463464873" />
+    <state x="909" y="265" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579579858141" />
     <state x="776" y="299" key="chooseDestDirectoryDialog" timestamp="1579404969702">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -162,6 +189,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579406117291" />
+    <state x="1081" y="253" width="700" height="530" key="recent.locations.popup" timestamp="1579561103804">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1081" y="253" width="700" height="530" key="recent.locations.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579561103804" />
     <state x="136" y="244" width="672" height="677" key="run.anything.popup" timestamp="1579389183784">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

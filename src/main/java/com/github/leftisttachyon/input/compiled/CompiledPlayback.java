@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Data
 @Getter(AccessLevel.NONE)
-public class CompiledPlayback {
+public class CompiledPlayback implements Iterable<CompiledInstruction> {
     /**
      * An {@link ArrayList} of {@link CompiledInstruction}s
      */
@@ -45,11 +45,12 @@ public class CompiledPlayback {
      * @param millis the number of milliseconds to wait before executing the next set of instructions
      */
     public void execute(Robot r, long millis) {
-        double[] prevEnd = {System.nanoTime()};
         Iterator<CompiledInstruction> iter = instructions.iterator();
 
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleAtFixedRate(() -> {
+            double start = System.nanoTime();
+
             if (iter.hasNext()) {
                 CompiledInstruction curr = iter.next();
                 log.trace("Executing {} ...", curr);
@@ -58,7 +59,22 @@ public class CompiledPlayback {
                 ses.shutdown();
                 log.info("Shutdown initiated");
             }
+
+            double total = System.nanoTime() - start;
+            total /= 1000000;
+            log.info("Time needed: {} ms", String.format("%.3f", total));
         }, 0, millis, TimeUnit.MILLISECONDS);
+
+        log.info("Execution started");
+    }
+
+    /**
+     * Returns an {@link Iterator} that goes through all of the {@link CompiledInstruction}s in this playback
+     *
+     * @return an {@link Iterator} that goes through all of the {@link CompiledInstruction}s in this playback
+     */
+    public Iterator<CompiledInstruction> iterator() {
+        return instructions.iterator();
     }
 
     @Override

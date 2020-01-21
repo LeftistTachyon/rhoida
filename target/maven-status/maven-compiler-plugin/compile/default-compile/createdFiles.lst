@@ -1,5 +1,11 @@
-com\github\leftisttachyon\input\Instruction.class
-com\github\leftisttachyon\input\Playback.class
-com\github\leftisttachyon\input\InstructionFormat.class
+com\github\leftisttachyon\gui\MainFrame$3.class
+com\github\leftisttachyon\input\InstructionFormatter.class
 com\github\leftisttachyon\Main.class
 com\github\leftisttachyon\input\InvalidFileFormatException.class
+com\github\leftisttachyon\input\compiled\CompiledPlayback.class
+com\github\leftisttachyon\gui\MainFrame$2.class
+com\github\leftisttachyon\gui\MainFrame.class
+com\github\leftisttachyon\input\SimplePlayback.class
+com\github\leftisttachyon\gui\MainFrame$1.class
+com\github\leftisttachyon\input\compiled\CompiledInstruction.class
+com\github\leftisttachyon\input\SimpleInstruction.class

@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Slf4j
-public class SimplePlayback {
+public class SimplePlayback implements Iterable<SimpleInstruction> {
     /**
      * A cache to store {@link SimplePlayback} objects to prevent duplication
      */
@@ -157,7 +157,7 @@ public class SimplePlayback {
      *
      * @return an {@link Iterator} that goes through all of the {@link SimpleInstruction}s in this object.
      */
-    public Iterator<SimpleInstruction> instructionIterator() {
+    public Iterator<SimpleInstruction> iterator() {
         return simpleInstructions.iterator();
     }
 
@@ -167,7 +167,7 @@ public class SimplePlayback {
      * @param r the {@link Robot} object to execute these actions with
      */
     public void executeQuick(Robot r) {
-        Iterator<SimpleInstruction> iter = instructionIterator();
+        Iterator<SimpleInstruction> iter = iterator();
         SimpleInstruction prev = null;
         while (iter.hasNext()) {
             SimpleInstruction curr = iter.next();
@@ -184,7 +184,7 @@ public class SimplePlayback {
      * @param millis the amount of milliseconds to wait before executing the next set of instructions
      */
     public void execute(Robot r, long millis) {
-        Iterator<SimpleInstruction> iter = instructionIterator();
+        Iterator<SimpleInstruction> iter = iterator();
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         SimpleInstruction[] prev = new SimpleInstruction[1];
         double[] prevEnd = {System.nanoTime()};
