@@ -203,7 +203,7 @@ public final class MainFrame extends JFrame {
         viewMenu.getAccessibleContext().setAccessibleDescription("The menu that controls the looks of this window");
 
         JMenuItem nextTabMenuItem = new JMenuItem();
-        nextTabMenuItem.setAccelerator(KeyStroke.getKeyStroke("control TAB"));
+        nextTabMenuItem.setAccelerator(KeyStroke.getKeyStroke("alt RIGHT"));
         nextTabMenuItem.setText("Next Tab");
         nextTabMenuItem.addActionListener(this::nextTab);
         nextTabMenuItem.setMnemonic(VK_N);
@@ -211,7 +211,7 @@ public final class MainFrame extends JFrame {
         viewMenu.add(nextTabMenuItem);
 
         JMenuItem previousTabMenuItem = new JMenuItem();
-        previousTabMenuItem.setAccelerator(KeyStroke.getKeyStroke("control shift TAB"));
+        previousTabMenuItem.setAccelerator(KeyStroke.getKeyStroke("alt LEFT"));
         previousTabMenuItem.setText("Previous Tab");
         previousTabMenuItem.addActionListener(this::previousTab);
         previousTabMenuItem.setMnemonic(VK_P);
