@@ -13,6 +13,8 @@ import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import static java.awt.event.KeyEvent.*;
+
 /**
  * The main GUI window
  *
@@ -138,82 +140,120 @@ public final class MainFrame extends JFrame {
         yOffsetField.setText("0");
 
         fileMenu.setText("File");
+        fileMenu.setMnemonic(VK_F);
+        fileMenu.getAccessibleContext().setAccessibleDescription("File menu");
+
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke("control N"));
         newMenuItem.setText("New");
         newMenuItem.addActionListener(this::create);
+        newMenuItem.setMnemonic(VK_N);
+        newMenuItem.getAccessibleContext().setAccessibleDescription("Creates a new tab.");
         fileMenu.add(newMenuItem);
 
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke("control O"));
         openMenuItem.setText("Open...");
         openMenuItem.addActionListener(this::open);
+        openMenuItem.setMnemonic(VK_O);
+        openMenuItem.getAccessibleContext().setAccessibleDescription("Opens a file for editing.");
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke("control S"));
         saveMenuItem.setText("Save");
         saveMenuItem.addActionListener(this::save);
+        saveMenuItem.setMnemonic(VK_S);
+        saveMenuItem.getAccessibleContext().setAccessibleDescription("Saves the currently opened file.");
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setText("Save As...");
         saveAsMenuItem.addActionListener(this::saveAs);
+        saveMenuItem.setMnemonic(VK_A);
+        saveMenuItem.getAccessibleContext().setAccessibleDescription("Saves the currently opened file as a new file.");
         fileMenu.add(saveAsMenuItem);
 
         saveAllMenuItem.setAccelerator(KeyStroke.getKeyStroke("control shift S"));
         saveAllMenuItem.setText("Save All");
         saveAllMenuItem.addActionListener(this::saveAll);
+        saveAllMenuItem.setMnemonic(VK_V);
+        saveAllMenuItem.getAccessibleContext().setAccessibleDescription("Saves all opened files.");
         fileMenu.add(saveAllMenuItem);
         fileMenu.add(separator1);
 
         exitMenuItem.setAccelerator(KeyStroke.getKeyStroke("alt F4"));
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(this::exit);
+        exitMenuItem.setMnemonic(VK_E);
+        exitMenuItem.getAccessibleContext().setAccessibleDescription("Exits this program");
         fileMenu.add(exitMenuItem);
 
         menuBar.add(fileMenu);
 
         editMenu.setText("Edit");
+        editMenu.setMnemonic(VK_E);
+        editMenu.getAccessibleContext().setAccessibleDescription("Edit menu");
 
         includeFileMenuItem.setAccelerator(KeyStroke.getKeyStroke("control I"));
         includeFileMenuItem.setText("Include File...");
         includeFileMenuItem.addActionListener(this::insertInclude);
+        includeFileMenuItem.setMnemonic(VK_I);
+        includeFileMenuItem.getAccessibleContext().setAccessibleDescription("Inserts an INCLUDE statement with the selected file");
         editMenu.add(includeFileMenuItem);
 
         menuBar.add(editMenu);
 
         viewMenu.setText("View");
+        viewMenu.setMnemonic(VK_V);
+        viewMenu.getAccessibleContext().setAccessibleDescription("The menu that controls the looks of this window");
 
         closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke("control W"));
         closeTabMenuItem.setText("Close Tab");
         closeTabMenuItem.addActionListener(this::closeTab);
+        closeTabMenuItem.setMnemonic(VK_C);
+        closeTabMenuItem.getAccessibleContext().setAccessibleDescription("Closes the current tab");
         viewMenu.add(closeTabMenuItem);
 
         closeAllTabsMenuItem.setAccelerator(KeyStroke.getKeyStroke("control shift W"));
         closeAllTabsMenuItem.setText("Close All Tabs");
         closeAllTabsMenuItem.addActionListener(this::closeAllTabs);
+        closeAllTabsMenuItem.setMnemonic(VK_A);
+        closeAllTabsMenuItem.getAccessibleContext().setAccessibleDescription("Closes all opened tabs");
         viewMenu.add(closeAllTabsMenuItem);
         viewMenu.add(seperator2);
 
         lineNumCheckBox.setSelected(true);
         lineNumCheckBox.setText("Enable Line Numbers");
         lineNumCheckBox.addActionListener(this::toggleLineNums);
+        lineNumCheckBox.setMnemonic(VK_L);
+        lineNumCheckBox.getAccessibleContext().setAccessibleDescription(
+                "If checked, shows line numbers on the left of the text area");
         viewMenu.add(lineNumCheckBox);
 
         frameNumCheckBox.setSelected(true);
         frameNumCheckBox.setText("Enable Frame Numbers");
         frameNumCheckBox.addActionListener(this::toggleFrameNums);
+        frameNumCheckBox.setMnemonic(VK_F);
+        frameNumCheckBox.getAccessibleContext().setAccessibleDescription(
+                "If checked, shows frame numbers on the right of the text area");
         viewMenu.add(frameNumCheckBox);
 
         menuBar.add(viewMenu);
 
         runMenu.setText("Run");
+        runMenu.setMnemonic(VK_R);
+        runMenu.getAccessibleContext().setAccessibleDescription("A menu that controls running the open program");
 
         circleTestMenuItem.setAccelerator(KeyStroke.getKeyStroke("F5"));
         circleTestMenuItem.setText("Circle Test");
         circleTestMenuItem.addActionListener(this::runCircleTest);
+        circleTestMenuItem.setMnemonic(VK_C);
+        circleTestMenuItem.getAccessibleContext().setAccessibleDescription(
+                "Shows a running visual of the open program");
         runMenu.add(circleTestMenuItem);
 
         runMenuItem.setAccelerator(KeyStroke.getKeyStroke("F6"));
         runMenuItem.setText("Run");
         runMenuItem.addActionListener(this::run);
+        runMenuItem.setMnemonic(VK_R);
+        runMenuItem.getAccessibleContext().setAccessibleDescription("Runs the opened program");
         runMenu.add(runMenuItem);
 
         menuBar.add(runMenu);
@@ -361,8 +401,8 @@ public final class MainFrame extends JFrame {
                     if (!alreadyOpened) {
                         fileTabbedPane.addTab(file.getName(), fileTab);
                     }
-                    String relLocation = file.toURI()
-                            .relativize(selectedTab.getFile().toURI()).getPath();
+                    String relLocation = selectedTab.getFile().getParentFile().toURI()
+                            .relativize(file.toURI()).getPath();
                     selectedTab.insertAtCursor("INCLUDE " + relLocation + '\n');
                 }
             }
@@ -383,9 +423,6 @@ public final class MainFrame extends JFrame {
 
         // TODO: window
     }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
 
     private void run(ActionEvent evt) {
         save(evt);
@@ -424,6 +461,8 @@ public final class MainFrame extends JFrame {
     private void closeTab(ActionEvent evt) {
         int temp = fileTabbedPane.getSelectedIndex();
         FileTab selectedTab = getSelectedTab();
+        log.debug("file: {}", selectedTab.getFile());
+        log.debug("isChanged: {}", selectedTab.isChanged());
         if (selectedTab.getFile() == null || selectedTab.isChanged()) {
             int confirm = JOptionPane.showConfirmDialog(this, "Are you sure that you want to close this without saving?",
                     "Closing confirmation", JOptionPane.YES_NO_OPTION);

@@ -1,12 +1,10 @@
 package com.github.leftisttachyon;
 
-import com.github.leftisttachyon.input.SimpleInstruction;
-import com.github.leftisttachyon.input.SimplePlayback;
-import com.github.leftisttachyon.input.compiled.CompiledPlayback;
+import com.github.leftisttachyon.gui.MainFrame;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -25,7 +23,7 @@ public class Main {
      * @throws AWTException if the {@link Robot} could not be created successfully
      */
     public static void main(String[] args) throws IOException, AWTException {
-        SimpleInstruction.setOffset(new Point(8, 24));
+        /*SimpleInstruction.setOffset(new Point(8, 24));
 
         File file = new File("test.txt");
         log.trace("File canonical path: {}", file.getCanonicalPath());
@@ -40,12 +38,24 @@ public class Main {
         CompiledPlayback compiledPlayback = simplePlayback.compile();
         log.trace("CompiledPlayback object: {}", compiledPlayback);
 
-        compiledPlayback.execute(r, 16);
+        compiledPlayback.execute(r, 16);*/
 
 //        simplePlayback.executeQuick(r);
 
         // testing space lmao
         // aaaaaabb
         //
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            log.error("Cannot start application", ex);
+        }
+
+        EventQueue.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 }

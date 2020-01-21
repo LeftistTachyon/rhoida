@@ -59,6 +59,7 @@ public class FileTab extends JScrollPane {
         textArea = new JTextArea(5, 20);
         textArea.setTabSize(4);
         textArea.setLineWrap(true);
+        textArea.setText("!FORMAT: \n");
         innerPanel.add(textArea);
 
         lineNumbers = new TextLineNumber(textArea);
@@ -136,8 +137,7 @@ public class FileTab extends JScrollPane {
         }
         try (BufferedWriter out = Files.newBufferedWriter(file.toPath())) {
             String text = textArea.getText();
-            out.write(text.replace("\t", "    "));
-            textArea.setText(text);
+            out.write(text);
             changed = false;
             return true;
         } catch (IOException e) {

@@ -89,7 +89,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
             if (line == null || !line.startsWith("!FORMAT: ")) {
                 throw new InvalidFileFormatException("Invalid or missing format declaration");
             } else {
-                format = new InstructionFormatter(line.substring(9));
+                format = new InstructionFormatter(line.substring(9).replace("\t", "    "));
             }
 
             // great, now start reading the file's true contents
@@ -117,6 +117,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
 
         String line;
         while ((line = in.readLine()) != null) {
+            line = line.replace("\t", "    ");
             String content = line.stripLeading();
             log.trace("content: {}", content);
 
