@@ -1,5 +1,6 @@
 package com.github.leftisttachyon.gui;
 
+import com.github.leftisttachyon.input.InvalidFileFormatException;
 import com.github.leftisttachyon.input.SimpleInstruction;
 import com.github.leftisttachyon.input.SimplePlayback;
 import com.github.leftisttachyon.input.compiled.CompiledPlayback;
@@ -320,7 +321,15 @@ public final class MainFrame extends JFrame {
         SimpleInstruction.setY_OFFSET(y);
 
         File file = getSelectedTab().getFile();
-        SimplePlayback uncompiled = SimplePlayback.createPlayback(file);
+        SimplePlayback uncompiled = null;
+        try {
+            uncompiled = SimplePlayback.createPlayback(file);
+        } catch (InvalidFileFormatException ife) {
+            JOptionPane.showMessageDialog(this, "The format of the file was incorrect:\n" + ife.getMessage(),
+                    "Badly formatted file", JOptionPane.WARNING_MESSAGE);
+            log.info("InvalidFileFormatException was thrown", ife);
+            return;
+        }
         CompiledPlayback compile = uncompiled.compile();
 
         try {

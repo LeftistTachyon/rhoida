@@ -221,10 +221,12 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
      */
     public CompiledPlayback compile() {
         ArrayList<CompiledInstruction> list = new ArrayList<>();
-        list.add(simpleInstructions.get(0).compile(null));
-        int max = simpleInstructions.size() - 1;
-        for (int i = 0; i < max; i++) {
-            list.add(simpleInstructions.get(i + 1).compile(simpleInstructions.get(i)));
+        if (!simpleInstructions.isEmpty()) {
+            list.add(simpleInstructions.get(0).compile(null));
+            int max = simpleInstructions.size() - 1;
+            for (int i = 0; i < max; i++) {
+                list.add(simpleInstructions.get(i + 1).compile(simpleInstructions.get(i)));
+            }
         }
 
         return new CompiledPlayback(list);
