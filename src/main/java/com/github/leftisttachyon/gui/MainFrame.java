@@ -23,6 +23,31 @@ import java.util.ArrayList;
 public final class MainFrame extends JFrame {
 
     /**
+     * The list of tabs
+     */
+    private final ArrayList<FileTab> tabs;
+    /**
+     * The {@link JFileChooser} instance used in this {@link MainFrame}.
+     */
+    private final JFileChooser fc;
+    /**
+     * A {@link JTabbedPane} that contains all of the goods
+     */
+    private JTabbedPane fileTabbedPane;
+    /**
+     * A formatted text field that handles the x-offset
+     */
+    private JFormattedTextField xOffsetField;
+    /**
+     * A formatted text field that handles the y-offset
+     */
+    private JFormattedTextField yOffsetField;
+    /**
+     * A counter for unnamed files
+     */
+    private int cnt = 2;
+
+    /**
      * Creates a new MainFrame
      */
     public MainFrame() {
@@ -30,6 +55,32 @@ public final class MainFrame extends JFrame {
         fc = new JFileChooser();
 
         initComponents();
+    }
+
+    /**
+     * Creates and shows this MainFrame for testing purposes.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        /* Set the Windows look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Windows is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            log.error("Cannot start application", ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        EventQueue.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 
     /**
@@ -208,10 +259,22 @@ public final class MainFrame extends JFrame {
         log.trace("Open dialog returned {}", returnVal);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            FileTab fileTab = newFileTab(file);
-            if (fileTab != null) {
-                fileTabbedPane.addTab(file.getName(), fileTab);
-                fileTabbedPane.setSelectedIndex(fileTabbedPane.getTabCount() - 1);
+            int alreadyOpened = -1;
+            for (int i = 0; i < tabs.size(); i++) {
+                if (file.getName().equals(tabs.get(i).getFileName())) {
+                    alreadyOpened = i;
+                    break;
+                }
+            }
+
+            if (alreadyOpened != -1) {
+                fileTabbedPane.setSelectedIndex(alreadyOpened);
+            } else {
+                FileTab fileTab = newFileTab(file);
+                if (fileTab != null) {
+                    fileTabbedPane.addTab(file.getName(), fileTab);
+                    fileTabbedPane.setSelectedIndex(fileTabbedPane.getTabCount() - 1);
+                }
             }
         }
     }
@@ -283,15 +346,24 @@ public final class MainFrame extends JFrame {
             File file = fc.getSelectedFile();
             FileTab fileTab = newFileTab(file);
             if (fileTab != null) {
-                fileTabbedPane.addTab(file.getName(), fileTab);
                 FileTab selectedTab = getSelectedTab();
                 if (selectedTab.getFile().equals(file)) {
                     JOptionPane.showMessageDialog(this, "Cannot include self", "Invalid inclusion",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    String relLocation = selectedTab.getFile().toURI()
-                            .relativize(file.toURI()).getPath();
-                    selectedTab.insertAtCursor("INSERT " + relLocation + '\n');
+                    boolean alreadyOpened = false;
+                    for (FileTab tab : tabs) {
+                        if (tab.getFileName().equals(file.getName())) {
+                            alreadyOpened = true;
+                            break;
+                        }
+                    }
+                    if (!alreadyOpened) {
+                        fileTabbedPane.addTab(file.getName(), fileTab);
+                    }
+                    String relLocation = file.toURI()
+                            .relativize(selectedTab.getFile().toURI()).getPath();
+                    selectedTab.insertAtCursor("INCLUDE " + relLocation + '\n');
                 }
             }
         }
@@ -312,6 +384,9 @@ public final class MainFrame extends JFrame {
         // TODO: window
     }
 
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private void run(ActionEvent evt) {
         save(evt);
 
@@ -321,19 +396,26 @@ public final class MainFrame extends JFrame {
         SimpleInstruction.setY_OFFSET(y);
 
         File file = getSelectedTab().getFile();
-        SimplePlayback uncompiled = null;
+        SimplePlayback uncompiled;
+        CompiledPlayback compiled;
         try {
+            SimplePlayback.clearCache();
             uncompiled = SimplePlayback.createPlayback(file);
+            compiled = uncompiled.compile();
         } catch (InvalidFileFormatException ife) {
             JOptionPane.showMessageDialog(this, "The format of the file was incorrect:\n" + ife.getMessage(),
                     "Badly formatted file", JOptionPane.WARNING_MESSAGE);
             log.info("InvalidFileFormatException was thrown", ife);
             return;
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Please check the data of the file:\n" + nfe.getMessage(),
+                    "Badly file data", JOptionPane.WARNING_MESSAGE);
+            log.info("NumberFormatException was thrown", nfe);
+            return;
         }
-        CompiledPlayback compile = uncompiled.compile();
 
         try {
-            compile.execute(new Robot(), 16);
+            compiled.execute(new Robot(), 16);
         } catch (AWTException e) {
             log.warn("An exception was thrown while creating a Robot", e);
         }
@@ -390,58 +472,5 @@ public final class MainFrame extends JFrame {
         int idx = fileTabbedPane.getSelectedIndex();
         return tabs.get(idx);
     }
-
-    /**
-     * Creates and shows this MainFrame for testing purposes.
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException
-                | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            log.error("Cannot start application", ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        EventQueue.invokeLater(() -> {
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
-        });
-    }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    /**
-     * A {@link JTabbedPane} that contains all of the goods
-     */
-    private JTabbedPane fileTabbedPane;
-    /**
-     * A formatted text field that handles the x-offset
-     */
-    private JFormattedTextField xOffsetField;
-    /**
-     * A formatted text field that handles the y-offset
-     */
-    private JFormattedTextField yOffsetField;
-    /**
-     * The list of tabs
-     */
-    private final ArrayList<FileTab> tabs;
-    /**
-     * A counter for unnamed files
-     */
-    private int cnt = 2;
-    /**
-     * The {@link JFileChooser} instance used in this {@link MainFrame}.
-     */
-    private final JFileChooser fc;
     // End of variables declaration
 }

@@ -56,6 +56,13 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
     }
 
     /**
+     * Clears the playback cache.
+     */
+    public static void clearCache() {
+        PLAYBACK_CACHE.clear();
+    }
+
+    /**
      * The collection of instructions to execute.
      */
     private ArrayList<SimpleInstruction> simpleInstructions;
@@ -221,6 +228,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
      */
     public CompiledPlayback compile() {
         ArrayList<CompiledInstruction> list = new ArrayList<>();
+        log.debug("Instructions to compile: {}", simpleInstructions);
         if (!simpleInstructions.isEmpty()) {
             list.add(simpleInstructions.get(0).compile(null));
             int max = simpleInstructions.size() - 1;

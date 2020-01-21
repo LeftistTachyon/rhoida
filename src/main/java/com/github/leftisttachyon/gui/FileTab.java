@@ -135,7 +135,9 @@ public class FileTab extends JScrollPane {
             return false;
         }
         try (BufferedWriter out = Files.newBufferedWriter(file.toPath())) {
-            out.write(textArea.getText());
+            String text = textArea.getText();
+            out.write(text.replace("\t", "    "));
+            textArea.setText(text);
             changed = false;
             return true;
         } catch (IOException e) {
