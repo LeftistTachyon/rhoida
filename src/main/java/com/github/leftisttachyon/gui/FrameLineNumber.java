@@ -33,11 +33,6 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
      */
     private ArrayList<Integer> frameNums;
     /**
-     * A {@link TreeMap} that contains the line weights and indentation levels.<br/>
-     * The first element of the value is the weight, and the second element of the value is the indentation level.
-     */
-    private TreeMap<Integer, int[]> weights;
-    /**
      * The path of the parent file
      */
     @Setter
@@ -49,7 +44,7 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
      * @param component the {@link JTextComponent} to pay attention to
      */
     public FrameLineNumber(JTextComponent component) {
-        this(component, 3, LEFT_ALIGNMENT);
+        this(component, LEFT_ALIGNMENT);
     }
 
     /**
@@ -63,7 +58,6 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
         super(component, minimumDisplayDigits, alignment);
 
         frameNums = new ArrayList<>();
-        weights = new TreeMap<>();
 
         updateFrameNums();
     }
@@ -75,7 +69,7 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
      * @param alignment the direction of alignment
      */
     public FrameLineNumber(JTextComponent component, float alignment) {
-        this(component, 3, alignment);
+        this(component, 4, alignment);
     }
 
     /**
@@ -83,7 +77,6 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
      */
     public void updateFrameNums() {
         frameNums.clear();
-        weights.clear();
 
         String[] lines = super.component.getText().split("\n");
         log.trace("lines: {}", Arrays.toString(lines));
@@ -99,17 +92,16 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
             return;
         }
 
-        frameNums.add(0);
-        weights.put(0, new int[]{1, 0});
+        LinkedList<Integer> weights = new LinkedList<>();
+        ArrayList<Integer> vals = new ArrayList<>();
 
-        for (int i = 1, trueVal = 0, shownVal = 0; i < lines.length; i++) {
+        frameNums.add(0);
+        weights.add(1);
+        vals.add(0);
+        for (int i = 1; i < lines.length; i++) {
             log.trace("@{}: frameNums: {}", i, frameNums);
-            log.trace("@{}: weights  :", i);
-            if (log.isTraceEnabled()) {
-                for (Map.Entry<Integer, int[]> entry : weights.entrySet()) {
-                    log.trace("{} = {}", entry.getKey(), Arrays.toString(entry.getValue()));
-                }
-            }
+            log.trace("@{}: weights  : {}", i, weights);
+            log.trace("@{}: vals     : {}", i, vals);
 
             String line = lines[i].replace("\t", "    ");
             String content = line.stripLeading();
@@ -124,32 +116,22 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
                 continue;
             }
 
-            Map.Entry<Integer, int[]> floor = weights.floorEntry(i);
-            int[] val = floor.getValue();
+            int indentLevel = weights.size() - 1;
             int localIndent = firstNonSpace / 4;
-            if (localIndent > val[1]) {
+            if (localIndent > indentLevel) {
                 log.trace("Jumping indentation");
                 frameNums.add(-1);
                 continue;
-            } else if (localIndent != val[1]) {
-                log.trace("@{}: Dropping down from {} to {}", i, val[1], localIndent);
+            } else if (localIndent != indentLevel) {
+                log.trace("@{}: Dropping down from {} to {}", i, indentLevel, localIndent);
 
-                SortedMap<Integer, int[]> before = weights.descendingMap().tailMap(i);
-                int[] newVal = null;
-                for (Map.Entry<Integer, int[]> entry : before.entrySet()) {
-                    int[] value = entry.getValue();
-                    log.trace("Checking @level {} \\w indent 'o {} ?= {}", entry.getKey(), value[1], localIndent);
-                    if (value[1] == localIndent) {
-                        newVal = value;
-                        break;
-                    }
+                for (int j = 0, size = vals.size() - 1; j < indentLevel - localIndent; j++) {
+                    weights.removeLast();
+                    vals.remove(size - j);
                 }
-
-                log.trace("newVal: {}", Arrays.toString(newVal));
-
-                shownVal = trueVal;
-                weights.put(i + 1, newVal);
             }
+
+            int weight = weights.getLast();
 
             if (content.startsWith("INCLUDE ")) {
                 // damn
@@ -158,7 +140,6 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
                         ? 0
                         : getFrameNums(Paths.get(parentPath, content.substring(8)).toFile()));
             } else {
-                val = weights.floorEntry(i).getValue();
                 if (content.startsWith("REPEAT ")) {
                     log.trace("REPEAT detected @{}", i);
                     String num = content.substring(7);
@@ -166,26 +147,25 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
                         frameNums.add(-1);
                         continue;
                     }
+
                     int mult = Integer.parseInt(num);
-                    int[] newVal = new int[]{val[0] * mult, val[1] + 1};
-                    log.trace("newVal: {}", Arrays.toString(val));
-                    weights.put(i + 1, newVal);
+                    weights.add(mult * weight);
                     frameNums.add(0);
+                    vals.add(vals.get(vals.size() - 1));
                 } else {
                     log.trace("Standard procedures");
-                    trueVal += val[0];
-                    frameNums.add(++shownVal);
+                    int j = vals.size() - 1;
+                    for (Iterator<Integer> iter = weights.iterator(); iter.hasNext(); j--) {
+                        vals.set(j, vals.get(j) + iter.next());
+                    }
+                    frameNums.add(vals.get(vals.size() - 1));
                 }
             }
         }
 
         log.trace("@end: frameNums: {}", frameNums);
-        log.trace("@end: weights  :");
-        if (log.isTraceEnabled()) {
-            for (Map.Entry<Integer, int[]> entry : weights.entrySet()) {
-                log.trace("{} = {}", entry.getKey(), Arrays.toString(entry.getValue()));
-            }
-        }
+        log.trace("@end: weights  : {}", weights);
+        log.trace("@end: vals     : {}", vals);
     }
 
     private int getFrameNums(File file) {
