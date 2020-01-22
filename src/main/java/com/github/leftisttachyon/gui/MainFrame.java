@@ -273,6 +273,61 @@ public final class MainFrame extends JFrame {
 
         menuBar.add(runMenu);
 
+        JMenu otherMenu = new JMenu("Other");
+        otherMenu.setMnemonic(VK_O);
+        otherMenu.getAccessibleContext().setAccessibleDescription("A menu with other stuff in it");
+
+        JMenuItem referenceMenuItem = new JMenuItem("User reference");
+        referenceMenuItem.addActionListener((evt) -> JOptionPane.showMessageDialog(this, new JLabel(
+                        "<html><body style='text-align:center'>" +
+                                "<h2><b>User Reference</b></h2>" +
+                                "<h3><i>Heading</i></h3>" +
+                                "<p>The first line in each file must be a format declaration. A format declaration is in the format<br>" +
+                                "<code>!FORMAT: &lt;...&gt;...</code> with the <code>...</code> inside the angle brackets<br>" +
+                                "representing a input specifier. You can add as many as you would like.</p>" +
+                                "<h3><i>Input Specifiers</i></h3>" +
+                                "Input specifiers direct RhoIda to which keys and mouse controls should be inputted.<br>" +
+                                "Below is a table containing all input specifiers.<br>" +
+                                "<table><tr><td><b>Input Specifier</b></td><td><b>Corresponding Control</b></td></tr>" +
+                                "<tr><td>MX</td><td>Mouse X Position</td></tr>" +
+                                "<tr><td>MY</td><td>Mouse Y Position</td></tr>" +
+                                "<tr><td>K<code>KEY</code></td><td><code>KEY</code></td></tr>" +
+                                "<tr><td>M<code>NUM</code></td><td>Mouse button number <code>NUM</code></td></tr></table>" +
+                                "<h3><i>Input Directions</i></h3>" +
+                                "<p>For input directions, follow your input format. For example, a format of <code>&lt;KA&gt; &lt;KB&gt;</code><br>" +
+                                "will match with <code>A B</code> and fail with <code>AB</code>. For mouse x- and y-coordinates,<br>" +
+                                "only numbers will be accepted as input.</p><br>" +
+                                "<p><code>_</code>, <code>-</code>, and <code>.</code> represent no input. All other characters represent input.<br>" +
+                                "For example, <code>. .</code> for the above sample format will yield no input on that frame.</p>" +
+                                "<h3><i>Other statements</i></h3>" +
+                                "<p>To repeat a block of commands, place a <code>REPEAT #</code> statement at the top of the block<br>" +
+                                "(with the # representing the number of times to repeat the below statements, which should be indented<br>" +
+                                "by 4 spaces each. You can nest <code>REPEAT</code> statements, but make sure you indent the<br>" +
+                                "corresponding statements.</p><br>" +
+                                "<p>Comments, which are lines starting with <code>#</code>, are not read by the interpreter.<p><br>" +
+                                "<p>You can include other files by using an <code>INCLUDE</code> statement. Insert the <i>relative</i><br>" +
+                                "file path of the file to be included after the <code>INCLUDE</code> statement to make the interpreter<br>" +
+                                "insert the contents of that file in that position in the file while running.</p>" +
+                                "</body></html>", SwingConstants.CENTER),
+                "User reference", JOptionPane.PLAIN_MESSAGE));
+        referenceMenuItem.setMnemonic(VK_R);
+        referenceMenuItem.getAccessibleContext().setAccessibleDescription("Opens the user reference");
+        otherMenu.add(referenceMenuItem);
+
+        JMenuItem aboutMenuItem = new JMenuItem("About");
+        aboutMenuItem.addActionListener((evt) -> JOptionPane.showMessageDialog(this, new JLabel(
+                        "<html><body style='text-align:center'>" +
+                                "<h2><b>About</b></h2>" +
+                                "<p>Developers:<br>LeftistTachyon</p><br>" +
+                                "<p>Mental support:<br>Imaproshaman</p>" +
+                                "</body></html>", SwingConstants.CENTER),
+                "About", JOptionPane.PLAIN_MESSAGE));
+        aboutMenuItem.setMnemonic(VK_A);
+        aboutMenuItem.getAccessibleContext().setAccessibleDescription("Opens the about screen");
+        otherMenu.add(aboutMenuItem);
+
+        menuBar.add(otherMenu);
+
         setJMenuBar(menuBar);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -527,6 +582,7 @@ public final class MainFrame extends JFrame {
     private FileTab newFileTab() {
         FileTab tab = new FileTab();
         tabs.add(tab);
+        fileTabbedPane.addChangeListener(tab.getChangeListener());
         return tab;
     }
 
@@ -538,6 +594,7 @@ public final class MainFrame extends JFrame {
             return null;
         }
         tabs.add(tab);
+        fileTabbedPane.addChangeListener(tab.getChangeListener());
         return tab;
     }
 
@@ -545,5 +602,4 @@ public final class MainFrame extends JFrame {
         int idx = fileTabbedPane.getSelectedIndex();
         return tabs.get(idx);
     }
-    // End of variables declaration
 }

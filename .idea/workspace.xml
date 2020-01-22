@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="" />
+    <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/FrameLineNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/FileTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/FileTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/TextLineNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/TextLineNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/input/SimplePlayback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/FileTab.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/TextLineNumber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/TextLineNumber.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimplePlayback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/input/SimplePlayback.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,9 +135,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="240" y="327" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579399825292" />
-    <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser" timestamp="1579570483320">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="203" y="149" key="#com.intellij.ide.util.MemberChooser" timestamp="1579661468373">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="203" y="149" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1579661468373" />
     <state x="285" y="240" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579570483320" />
     <state x="536" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579405099364">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -135,34 +148,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579404399202" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1579639268867">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1579661949950">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1579661949950" />
     <state width="914" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435945" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1579639268867">
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1579661949950">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1579661949950" />
     <state width="914" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435944" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1579639268867">
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1579661949950">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1579661949950" />
     <state width="914" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435944" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1579639268867">
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1579661949950">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579639268867" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1579661949950" />
     <state width="914" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579580435945" />
     <state x="0" y="167" key="SettingsEditor" timestamp="1579383465751">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="167" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579383465751" />
-    <state x="647" y="186" width="570" height="367" key="StructurePopup" timestamp="1579637339578">
+    <state x="647" y="186" width="570" height="367" key="StructurePopup" timestamp="1579661410155">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="647" y="186" width="570" height="367" key="StructurePopup/0.0.1366.728@0.0.1366.728" timestamp="1579637339578" />
+    <state x="647" y="186" width="570" height="367" key="StructurePopup/0.0.1366.728@0.0.1366.728" timestamp="1579661410155" />
     <state x="909" y="265" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1579579858141" />
     <state x="776" y="299" key="chooseDestDirectoryDialog" timestamp="1579404969702">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -176,10 +189,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="210" y="280" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579402284896" />
-    <state x="467" y="176" width="607" height="536" key="find.popup" timestamp="1579623578915">
+    <state x="467" y="176" width="607" height="536" key="find.popup" timestamp="1579658598348">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="467" y="176" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1579623578915" />
+    <state x="467" y="176" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1579658598348" />
     <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579406117291" />
     <state x="1081" y="253" width="700" height="530" key="recent.locations.popup" timestamp="1579561103804">
       <screen x="0" y="0" width="1920" height="1040" />

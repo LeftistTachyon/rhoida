@@ -93,7 +93,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
             }
 
             // great, now start reading the file's true contents
-            simpleInstructions = readIndented(in, format, 0, toParse.getParentFile().getPath());
+            simpleInstructions = readIndented(in, format, 0, toParse.getParent());
         } catch (IOException e) {
             log.warn("While reading the file, an IOException was thrown", e);
         }
