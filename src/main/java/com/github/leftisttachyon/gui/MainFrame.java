@@ -12,6 +12,11 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -57,32 +62,6 @@ public final class MainFrame extends JFrame {
         fc = new JFileChooser();
 
         initComponents();
-    }
-
-    /**
-     * Creates and shows this MainFrame for testing purposes.
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        /* Set the Windows look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Windows is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException
-                | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            log.error("Cannot start application", ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        EventQueue.invokeLater(() -> {
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
-        });
     }
 
     /**
@@ -505,23 +484,69 @@ public final class MainFrame extends JFrame {
     private void runCircleTest(ActionEvent evt) {
         save(evt);
 
+        File f = getSelectedTab().getFile();
+        if (f == null) {
+            return;
+        }
+
         int x = Integer.parseInt(xOffsetField.getText()),
                 y = Integer.parseInt(yOffsetField.getText());
-        SimpleInstruction.setX_OFFSET(x);
-        SimpleInstruction.setY_OFFSET(y);
+//        SimpleInstruction.setX_OFFSET(x);
+//        SimpleInstruction.setY_OFFSET(y);
 
-        // TODO: window
+        SimplePlayback playback = SimplePlayback.createPlayback(f);
+        int maxX = -1, maxY = -1;
+        for (SimpleInstruction ins : playback) {
+            HashMap<String, String> inputMap = ins.getInputMap();
+            String valX = inputMap.get("MX");
+            if (valX != null && valX.matches("\\d+")) {
+                int tempX = Integer.parseInt(valX);
+                if (tempX > maxX) {
+                    maxX = tempX;
+                }
+            }
+
+            String valY = inputMap.get("MY");
+            if (valY != null && valY.matches("\\d+")) {
+                int tempY = Integer.parseInt(valY);
+                if (tempY > maxY) {
+                    maxY = tempY;
+                }
+            }
+        }
+
+        Iterator<SimpleInstruction> iter = playback.iterator();
+        InputPanel inputPanel = InputPanel.displayNewInputPanel(x, y, maxX + 10, maxY + 10);
+
+        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleAtFixedRate(() -> {
+            try {
+                if (iter.hasNext()) {
+                    SimpleInstruction ins = iter.next();
+                    inputPanel.update(ins);
+                } else {
+                    ses.shutdown();
+                    SwingUtilities.getWindowAncestor(inputPanel).dispose();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 500, 16, TimeUnit.MILLISECONDS);
     }
 
     private void run(ActionEvent evt) {
         save(evt);
 
+        File file = getSelectedTab().getFile();
+        if (file == null) {
+            return;
+        }
+
         int x = Integer.parseInt(xOffsetField.getText()),
                 y = Integer.parseInt(yOffsetField.getText());
         SimpleInstruction.setX_OFFSET(x);
         SimpleInstruction.setY_OFFSET(y);
 
-        File file = getSelectedTab().getFile();
         SimplePlayback uncompiled;
         CompiledPlayback compiled;
         try {

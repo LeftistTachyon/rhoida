@@ -44,6 +44,10 @@ public class CompiledInstruction {
      * @param r the {@link Robot} object to execute these instructions with
      */
     public void execute(Robot r) {
+        if (mouseCoords != null) {
+            r.mouseMove(mouseCoords.x, mouseCoords.y);
+        }
+
         if (mousePress != null && !mousePress.isEmpty()) {
             for (int i : mousePress) {
                 r.mousePress(i);
@@ -64,10 +68,6 @@ public class CompiledInstruction {
             for (int i : keyRelease) {
                 r.keyRelease(i);
             }
-        }
-
-        if (mouseCoords != null) {
-            r.mouseMove(mouseCoords.x, mouseCoords.y);
         }
     }
 

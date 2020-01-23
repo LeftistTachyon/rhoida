@@ -235,13 +235,13 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
 
         int get = frameNums.get(idx);
         if (get == 0) {
-            log.debug("Calling getNumber({}) yielded \"\"", idx);
+            log.trace("Calling getNumber({}) yielded \"\"", idx);
             return "";
         } else if (get == -1) {
-            log.debug("Calling getNumber({}) yielded \"ERR\"", idx);
+            log.trace("Calling getNumber({}) yielded \"ERR\"", idx);
             return "ERR";
         } else {
-            log.debug("Calling getNumber({}) yielded \"{}\"", idx, get);
+            log.trace("Calling getNumber({}) yielded \"{}\"", idx, get);
             return String.valueOf(get);
         }
     }

@@ -42,6 +42,19 @@ public class SimpleInstruction {
     @Getter
     @Setter
     private static int Y_OFFSET = 0;
+    /**
+     * The map of button presses and mouse movements to do
+     */
+    private final HashMap<String, String> inputMap;
+
+    /**
+     * Gets the mouse offset for instruction execution
+     *
+     * @return a {@link Point} object that represents the offsets being used
+     */
+    public static Point getOffset() {
+        return new Point(X_OFFSET, Y_OFFSET);
+    }
 
     /**
      * Sets the mouse offset for instruction execution
@@ -54,22 +67,18 @@ public class SimpleInstruction {
     }
 
     /**
-     * Gets the mouse offset for instruction execution
+     * Determines whether the given {@link String} designates input
      *
-     * @return a {@link Point} object that represents the offsets being used
+     * @param val the {@link String} to check
+     * @return whether the given {@link String} designates input
      */
-    public static Point getOffset() {
-        return new Point(X_OFFSET, Y_OFFSET);
+    public static boolean isInput(String val) {
+        return !NO_INPUT.contains(val);
     }
 
     /**
-     * The map of button presses and mouse movements to do
-     */
-    private final HashMap<String, String> inputMap;
-
-    /**
      * Executes this instruction.<br/>
-     * <b>NOTE: for the mouse, first mouse click actions are parsed, then mouse movement</b>
+     * <b>NOTE: for the mouse, first mouse movement actions are parsed, then mouse button actions.</b>
      *
      * @param r         the {@link Robot} to execute these instructions with
      * @param preceding the preceding instructions
@@ -81,6 +90,7 @@ public class SimpleInstruction {
         }
 
         int x = -1, y = -1;
+        HashSet<Integer> mouse = new HashSet<>();
         for (Map.Entry<String, String> inputEntry : inputMap.entrySet()) {
             String key = inputEntry.getKey(),
                     currInput = inputEntry.getValue(),
@@ -124,9 +134,11 @@ public class SimpleInstruction {
                         continue;
                     }
 
-                    r.mouseRelease(button);
+//                    r.mouseRelease(button);
+                    mouse.add(~button);
                 } else {
-                    r.mousePress(button);
+//                    r.mousePress(button);
+                    mouse.add(button);
                 }
             } else {
                 throw new IllegalArgumentException("Unknown instruction key: " + key);
@@ -137,6 +149,15 @@ public class SimpleInstruction {
 
         if (x != -1 && y != -1) {
             r.mouseMove(X_OFFSET + x, Y_OFFSET + y);
+        }
+        if (!mouse.isEmpty()) {
+            for (int b : mouse) {
+                if (b < 0) {
+                    r.mouseRelease(~b);
+                } else {
+                    r.mousePress(b);
+                }
+            }
         }
     }
 

@@ -52,13 +52,11 @@ public class FileTab extends JScrollPane {
      * Creates a new {@link FileTab}.
      */
     public FileTab() {
-        innerPanel = new JPanel();
-        innerPanel.setLayout(new BorderLayout());
+        innerPanel = new JPanel(new BorderLayout());
 
-        textArea = new JTextArea(5, 20);
+        textArea = new JTextArea("!FORMAT: \n", 5, 20);
         textArea.setTabSize(4);
         textArea.setLineWrap(true);
-        textArea.setText("!FORMAT: \n");
         innerPanel.add(textArea);
 
         lineNumbers = new TextLineNumber(textArea);
