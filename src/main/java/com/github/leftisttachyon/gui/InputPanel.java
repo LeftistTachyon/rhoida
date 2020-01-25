@@ -160,7 +160,7 @@ public class InputPanel extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        log.debug("Painted");
+        log.trace("Painted");
 
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

@@ -136,9 +136,22 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
             if (content.startsWith("INCLUDE ")) {
                 // damn
                 log.trace("INCLUDE detected");
-                frameNums.add(parentPath == null
-                        ? 0
-                        : getFrameNums(Paths.get(parentPath, content.substring(8)).toFile()));
+                if (parentPath == null) {
+                    frameNums.add(0);
+                    continue;
+                }
+                
+                int val = getFrameNums(Paths.get(parentPath, content.substring(8)).toFile());
+                int j = vals.size() - 1;
+                for (Iterator<Integer> iter = weights.iterator(); iter.hasNext(); j--) {
+                    vals.set(j, vals.get(j) + iter.next());
+                }
+                frameNums.add(vals.get(vals.size() - 1));
+
+                j = vals.size() - 1;
+                for (Iterator<Integer> iter = weights.iterator(); iter.hasNext(); j--) {
+                    vals.set(j, vals.get(j) + iter.next() * (val - 1));
+                }
             } else {
                 if (content.startsWith("REPEAT ")) {
                     log.trace("REPEAT detected @{}", i);
