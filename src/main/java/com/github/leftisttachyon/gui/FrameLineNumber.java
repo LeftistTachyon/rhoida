@@ -140,7 +140,7 @@ public class FrameLineNumber extends TextLineNumber implements ChangeListener {
                     frameNums.add(0);
                     continue;
                 }
-                
+
                 int val = getFrameNums(Paths.get(parentPath, content.substring(8)).toFile());
                 int j = vals.size() - 1;
                 for (Iterator<Integer> iter = weights.iterator(); iter.hasNext(); j--) {

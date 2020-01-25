@@ -4,6 +4,7 @@ import com.github.leftisttachyon.input.SimpleInstruction;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.Set;
  * @author Jed Wang
  * @since 1.0.0
  */
+@Slf4j
 @Data
 @Setter(AccessLevel.NONE)
 public class CompiledInstruction {
@@ -50,6 +52,7 @@ public class CompiledInstruction {
 
         if (mousePress != null && !mousePress.isEmpty()) {
             for (int i : mousePress) {
+                log.debug("Invalid? {}", i);
                 r.mousePress(i);
             }
         }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -135,10 +136,30 @@ public class SimpleInstruction {
                     }
 
 //                    r.mouseRelease(button);
-                    mouse.add(~button);
+                    switch (button) {
+                        case 1:
+                            mouse.add(~MouseEvent.BUTTON1_DOWN_MASK);
+                            break;
+                        case 2:
+                            mouse.add(~MouseEvent.BUTTON2_DOWN_MASK);
+                            break;
+                        case 3:
+                            mouse.add(~MouseEvent.BUTTON3_DOWN_MASK);
+                            break;
+                    }
                 } else {
 //                    r.mousePress(button);
-                    mouse.add(button);
+                    switch (button) {
+                        case 1:
+                            mouse.add(MouseEvent.BUTTON1_DOWN_MASK);
+                            break;
+                        case 2:
+                            mouse.add(MouseEvent.BUTTON2_DOWN_MASK);
+                            break;
+                        case 3:
+                            mouse.add(MouseEvent.BUTTON3_DOWN_MASK);
+                            break;
+                    }
                 }
             } else {
                 throw new IllegalArgumentException("Unknown instruction key: " + key);
@@ -222,9 +243,31 @@ public class SimpleInstruction {
                         continue;
                     }
 
-                    mR.add(button);
+//                    mR.add(button);
+                    switch (button) {
+                        case 1:
+                            mR.add(MouseEvent.BUTTON1_DOWN_MASK);
+                            break;
+                        case 2:
+                            mR.add(MouseEvent.BUTTON2_DOWN_MASK);
+                            break;
+                        case 3:
+                            mR.add(MouseEvent.BUTTON3_DOWN_MASK);
+                            break;
+                    }
                 } else {
-                    mP.add(button);
+//                    mP.add(button);
+                    switch (button) {
+                        case 1:
+                            mP.add(MouseEvent.BUTTON1_DOWN_MASK);
+                            break;
+                        case 2:
+                            mP.add(MouseEvent.BUTTON2_DOWN_MASK);
+                            break;
+                        case 3:
+                            mP.add(MouseEvent.BUTTON3_DOWN_MASK);
+                            break;
+                    }
                 }
             } else {
                 throw new IllegalArgumentException("Unknown instruction key: " + key);
