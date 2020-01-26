@@ -6,7 +6,7 @@
 
     <groupId>com.github.leftisttachyon</groupId>
     <artifactId>rhoida</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <name>RhoIda</name>
     <description>A TASing tool for mobile emulator on PC.</description>
