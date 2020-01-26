@@ -26,15 +26,17 @@ import java.util.HashMap;
  * a JScrollPane.
  *
  * @author Rob Camick, Jed Wang
+ * @since 1.0.0
  */
-public final class TextLineNumber extends JPanel
+//@Slf4j
+public class TextLineNumber extends JPanel
         implements CaretListener, DocumentListener, PropertyChangeListener {
 
     private final static Border OUTER_RIGHT = new MatteBorder(0, 0, 0, 2, Color.GRAY);
     private final static Border OUTER_LEFT = new MatteBorder(0, 2, 0, 0, Color.GRAY);
 
     //  Text component this TextTextLineNumber component is in sync with
-    private JTextComponent component;
+    protected JTextComponent component;
 
     //  Properties that can be changed
     private boolean updateFont;
@@ -78,7 +80,7 @@ public final class TextLineNumber extends JPanel
         setDigitAlignment(alignment);
         setBorderGap(5);
         setCurrentLineForeground(alignment == LEFT_ALIGNMENT
-                ? new Color(34, 139, 34)
+                ? new Color(34, 192, 34)
                 : Color.RED);
         setMinimumDisplayDigits(minimumDisplayDigits);
     }
@@ -292,10 +294,14 @@ public final class TextLineNumber extends JPanel
         Element line = root.getElement(index);
 
         if (line.getStartOffset() == rowStartOffset) {
-            return String.valueOf(index + 1);
+            return getNumber(index);
         } else {
             return "";
         }
+    }
+
+    protected String getNumber(int idx) {
+        return String.valueOf(idx + 1);
     }
 
     /*

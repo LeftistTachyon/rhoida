@@ -1,10 +1,10 @@
 package com.github.leftisttachyon.gui;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -36,13 +36,12 @@ public class FileTab extends JScrollPane {
      */
     private final TextLineNumber lineNumbers;
     /**
-     * The {@link TextLineNumber} object used for frame numbers on the right
+     * The {@link FrameLineNumber} object used for frame numbers on the right
      */
-    private final TextLineNumber frameNumbers;
+    private final FrameLineNumber frameNumbers;
     /**
      * The file that this file tab is saving to
      */
-    @Setter
     private File file;
     /**
      * Stores whether the content of the {@link JTextArea} has been changed since the last save.
@@ -53,10 +52,9 @@ public class FileTab extends JScrollPane {
      * Creates a new {@link FileTab}.
      */
     public FileTab() {
-        innerPanel = new JPanel();
-        innerPanel.setLayout(new BorderLayout());
+        innerPanel = new JPanel(new BorderLayout());
 
-        textArea = new JTextArea(5, 20);
+        textArea = new JTextArea("!FORMAT: \n", 5, 20);
         textArea.setTabSize(4);
         textArea.setLineWrap(true);
         innerPanel.add(textArea);
@@ -68,7 +66,7 @@ public class FileTab extends JScrollPane {
         textArea.addPropertyChangeListener("font", lineNumbers);
         innerPanel.add(lineNumbers, BorderLayout.WEST);
 
-        frameNumbers = new TextLineNumber(textArea, 4, TextLineNumber.LEFT_ALIGNMENT);
+        frameNumbers = new FrameLineNumber(textArea);
         textArea.getDocument().addDocumentListener(frameNumbers);
         textArea.addCaretListener(frameNumbers);
         textArea.addPropertyChangeListener("font", frameNumbers);
@@ -91,8 +89,11 @@ public class FileTab extends JScrollPane {
                 changed();
             }
         });
+
         setViewportView(innerPanel);
         getVerticalScrollBar().setUnitIncrement(16);
+        setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
+        setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
     }
 
     /**
@@ -105,6 +106,9 @@ public class FileTab extends JScrollPane {
 
         file = toOpen;
         open();
+
+        frameNumbers.setParentPath(file.getParent());
+        frameNumbers.updateFrameNums();
     }
 
     /**
@@ -135,7 +139,8 @@ public class FileTab extends JScrollPane {
             return false;
         }
         try (BufferedWriter out = Files.newBufferedWriter(file.toPath())) {
-            out.write(textArea.getText());
+            String text = textArea.getText();
+            out.write(text);
             changed = false;
             return true;
         } catch (IOException e) {
@@ -176,6 +181,7 @@ public class FileTab extends JScrollPane {
             }
 
             textArea.setText(sb.toString());
+            frameNumbers.updateFrameNums();
             changed = false;
         } catch (IOException e) {
             log.warn("An IOException was thrown while attempting to open a file", e);
@@ -186,9 +192,30 @@ public class FileTab extends JScrollPane {
     }
 
     /**
+     * Returns the internally stored {@link ChangeListener}
+     *
+     * @return the internally stored {@link ChangeListener}
+     */
+    public ChangeListener getChangeListener() {
+        return frameNumbers;
+    }
+
+    /**
      * Called when the content of the {@link JTextArea} changes.
      */
     private void changed() {
         changed = true;
+    }
+
+    /**
+     * Sets the current file that this {@link FileTab} is working with
+     *
+     * @param file the file that this {@link FileTab} is working with
+     */
+    public void setFile(File file) {
+        this.file = file;
+
+        frameNumbers.setParentPath(file.getParent());
+        frameNumbers.updateFrameNums();
     }
 }

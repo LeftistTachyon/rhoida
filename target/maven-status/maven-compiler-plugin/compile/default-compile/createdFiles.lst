@@ -4,8 +4,13 @@ com\github\leftisttachyon\gui\TextLineNumber.class
 com\github\leftisttachyon\input\InvalidFileFormatException.class
 com\github\leftisttachyon\input\compiled\CompiledPlayback.class
 com\github\leftisttachyon\gui\FileTab$1.class
+com\github\leftisttachyon\input\SimpleInstruction.class
+com\github\leftisttachyon\gui\FrameLineNumber.class
+com\github\leftisttachyon\input\InstructionFormatter.class
+com\github\leftisttachyon\gui\TextLineNumber.class
+com\github\leftisttachyon\gui\InputPanel.class
 com\github\leftisttachyon\gui\MainFrame.class
 com\github\leftisttachyon\input\SimplePlayback.class
 com\github\leftisttachyon\input\compiled\CompiledInstruction.class
-com\github\leftisttachyon\input\SimpleInstruction.class
+>>>>>>> 156a3cf951b53fe82e4fcf38825c293e81c73565
 com\github\leftisttachyon\gui\FileTab.class

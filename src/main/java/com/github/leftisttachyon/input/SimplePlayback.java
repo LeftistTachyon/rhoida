@@ -56,6 +56,13 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
     }
 
     /**
+     * Clears the playback cache.
+     */
+    public static void clearCache() {
+        PLAYBACK_CACHE.clear();
+    }
+
+    /**
      * The collection of instructions to execute.
      */
     private ArrayList<SimpleInstruction> simpleInstructions;
@@ -82,11 +89,11 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
             if (line == null || !line.startsWith("!FORMAT: ")) {
                 throw new InvalidFileFormatException("Invalid or missing format declaration");
             } else {
-                format = new InstructionFormatter(line.substring(9));
+                format = new InstructionFormatter(line.substring(9).replace("\t", "    "));
             }
 
             // great, now start reading the file's true contents
-            simpleInstructions = readIndented(in, format, 0, toParse.getPath());
+            simpleInstructions = readIndented(in, format, 0, toParse.getParent());
         } catch (IOException e) {
             log.warn("While reading the file, an IOException was thrown", e);
         }
@@ -110,6 +117,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
 
         String line;
         while ((line = in.readLine()) != null) {
+            line = line.replace("\t", "    ");
             String content = line.stripLeading();
             log.trace("content: {}", content);
 
@@ -132,7 +140,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
 
             // guaranteed: indentationLevel * 4 == firstNonSpace
             if (content.startsWith("INCLUDE ")) {
-                Path path = Paths.get(filePath, "..", content.substring(8));
+                Path path = Paths.get(filePath, content.substring(8));
                 log.trace("Fragment path: {}", path);
                 SimplePlayback inner = SimplePlayback.createPlayback(path.toFile());
                 output.addAll(inner.simpleInstructions);
@@ -221,6 +229,7 @@ public class SimplePlayback implements Iterable<SimpleInstruction> {
      */
     public CompiledPlayback compile() {
         ArrayList<CompiledInstruction> list = new ArrayList<>();
+        log.debug("Instructions to compile: {}", simpleInstructions);
         if (!simpleInstructions.isEmpty()) {
             list.add(simpleInstructions.get(0).compile(null));
             int max = simpleInstructions.size() - 1;
