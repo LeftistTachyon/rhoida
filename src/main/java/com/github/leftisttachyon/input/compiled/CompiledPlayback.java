@@ -40,24 +40,34 @@ public class CompiledPlayback implements Iterable<CompiledInstruction> {
      *
      * @param r      the {@link Robot} to execute these instructions with
      * @param millis the number of milliseconds to wait before executing the next set of instructions
+     * @return the started {@link Thread}
      */
-    public void execute(Robot r, int millis) {
+    public Thread execute(Robot r, int millis) {
         Iterator<CompiledInstruction> iter = instructions.iterator();
         log.info("Execution started");
 
-        double start = System.nanoTime();
-        while (iter.hasNext()) {
-            double total = System.nanoTime() - start;
-            total /= 1_000_000;
-            log.info("Cycle: {} ms", String.format("%.3f", total));
-            start = System.nanoTime();
+        Thread output = new Thread(() -> {
+            double start = System.nanoTime();
+            while (iter.hasNext()) {
+                double total = System.nanoTime() - start;
+                total /= 1_000_000;
+                log.info("Cycle: {} ms", String.format("%.3f", total));
+                start = System.nanoTime();
 
-            CompiledInstruction curr = iter.next();
-            log.trace("Executing {} ...", curr);
-            curr.execute(r);
+                CompiledInstruction curr = iter.next();
+                log.trace("Executing {} ...", curr);
+                curr.execute(r);
 
-            r.delay(millis);
-        }
+                try {
+                    Thread.sleep(millis);
+                } catch(InterruptedException ite) {
+                    break;
+                }
+            }
+        });
+        output.start();
+
+        return output;
     }
 
     /**

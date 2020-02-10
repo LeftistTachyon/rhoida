@@ -9,14 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -49,6 +48,10 @@ public final class MainFrame extends JFrame {
      * A formatted text field that handles the y-offset
      */
     private JFormattedTextField yOffsetField;
+    /**
+     * The currently running thread, if any
+     */
+    private Thread running;
     /**
      * A counter for unnamed files
      */
@@ -99,6 +102,12 @@ public final class MainFrame extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("RhoIda");
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+            }
+        });
 
         Font segoe12 = new Font("Segoe UI", Font.PLAIN, 12); // NOI18N
         xOffsetLabel.setFont(segoe12);
@@ -249,6 +258,15 @@ public final class MainFrame extends JFrame {
         runMenuItem.setMnemonic(VK_R);
         runMenuItem.getAccessibleContext().setAccessibleDescription("Runs the opened program");
         runMenu.add(runMenuItem);
+
+        runMenu.add(new JPopupMenu.Separator());
+
+        JMenuItem stopMenuItem = new JMenuItem("Stop");
+        stopMenuItem.setAccelerator(KeyStroke.getKeyStroke("control ESC"));
+        stopMenuItem.addActionListener(this::stop);
+        stopMenuItem.setMnemonic(VK_S);
+        stopMenuItem.getAccessibleContext().setAccessibleDescription("Stops the currently running thread");
+        runMenu.add(stopMenuItem);
 
         menuBar.add(runMenu);
 
@@ -518,20 +536,21 @@ public final class MainFrame extends JFrame {
         Iterator<SimpleInstruction> iter = playback.iterator();
         InputPanel inputPanel = InputPanel.displayNewInputPanel(x, y, maxX + 10, maxY + 10);
 
-        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleAtFixedRate(() -> {
-            try {
-                if (iter.hasNext()) {
-                    SimpleInstruction ins = iter.next();
-                    inputPanel.update(ins);
-                } else {
-                    ses.shutdown();
-                    SwingUtilities.getWindowAncestor(inputPanel).dispose();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        running = new Thread(() -> {
+            while (iter.hasNext()) {
+                SimpleInstruction ins = iter.next();
+                inputPanel.update(ins);
             }
-        }, 500, 16, TimeUnit.MILLISECONDS);
+            SwingUtilities.getWindowAncestor(inputPanel).dispose();
+        }) {
+            @Override
+            public void interrupt() {
+                super.interrupt();
+
+                SwingUtilities.getWindowAncestor(inputPanel).dispose();
+            }
+        };
+        running.start();
     }
 
     private void run(ActionEvent evt) {
@@ -566,7 +585,7 @@ public final class MainFrame extends JFrame {
         }
 
         try {
-            compiled.execute(new Robot(), 16);
+            running = compiled.execute(new Robot(), 16);
         } catch (AWTException e) {
             log.warn("An exception was thrown while creating a Robot", e);
         }
@@ -586,6 +605,9 @@ public final class MainFrame extends JFrame {
         }
         fileTabbedPane.remove(temp);
         tabs.remove(temp);
+        if (tabs.size() != fileTabbedPane.getTabCount()) {
+            log.warn("Sizes not equal: {} vs {}", tabs, fileTabbedPane.getTabCount());
+        }
         fileTabbedPane.setSelectedIndex(Math.min(temp, fileTabbedPane.getTabCount() - 1));
 
         if (fileTabbedPane.getTabCount() == 0) {
@@ -602,6 +624,10 @@ public final class MainFrame extends JFrame {
         tabs.clear();
 
         create(evt);
+    }
+
+    private void stop(ActionEvent evt) {
+        if(running != null) running.interrupt();
     }
 
     private FileTab newFileTab() {

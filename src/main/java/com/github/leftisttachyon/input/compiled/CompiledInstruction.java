@@ -52,7 +52,7 @@ public class CompiledInstruction {
 
         if (mousePress != null && !mousePress.isEmpty()) {
             for (int i : mousePress) {
-                log.debug("Invalid? {}", i);
+                log.trace("Invalid? {}", i);
                 r.mousePress(i);
             }
         }
