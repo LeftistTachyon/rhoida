@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96291a27-b1d4-47f9-b6f8-2dee926e3da5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/rhoida.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/leftisttachyon/WindowFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/InputPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/InputPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/gui/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/InputPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/InputPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/leftisttachyon/gui/MainFrame.class" afterDir="false" />
@@ -60,7 +54,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.InputPanel">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="InputPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.leftisttachyon.gui.InputPanel" />
       <module name="rhoida" />
@@ -142,25 +136,25 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="914" height="279" key="GridCell.Tab.0.bottom" timestamp="1594070406273">
+    <state width="914" height="281" key="GridCell.Tab.0.bottom" timestamp="1594075532960">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594070406273" />
-    <state width="914" height="279" key="GridCell.Tab.0.center" timestamp="1594070406272">
+    <state width="914" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594075532960" />
+    <state width="914" height="281" key="GridCell.Tab.0.center" timestamp="1594075532960">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594070406272" />
-    <state width="914" height="279" key="GridCell.Tab.0.left" timestamp="1594070406272">
+    <state width="914" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594075532960" />
+    <state width="914" height="281" key="GridCell.Tab.0.left" timestamp="1594075532960">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594070406272" />
-    <state width="914" height="279" key="GridCell.Tab.0.right" timestamp="1594070406272">
+    <state width="914" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594075532960" />
+    <state width="914" height="281" key="GridCell.Tab.0.right" timestamp="1594075532960">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594070406272" />
-    <state x="681" y="261" width="540" height="524" key="StructurePopup" timestamp="1594070254644">
+    <state width="914" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594075532960" />
+    <state x="214" y="363" width="570" height="524" key="StructurePopup" timestamp="1594074155782">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="681" y="261" width="540" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1594070254644" />
+    <state x="214" y="363" width="570" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1594074155782" />
   </component>
 </project>

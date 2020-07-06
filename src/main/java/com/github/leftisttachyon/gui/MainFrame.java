@@ -52,9 +52,9 @@ public final class MainFrame extends JFrame {
      */
     private JFormattedTextField yOffsetField;
     /**
-     * A button that opens a pop to choose a window to input to.
+     * A formatted text field that handles the delay between each frame.
      */
-    private JButton chooseWindowButton;
+    private JFormattedTextField frameDelayField;
     /**
      * The currently running thread, if any
      */
@@ -81,39 +81,33 @@ public final class MainFrame extends JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-        JLabel xOffsetLabel = new JLabel();
-        NumberFormat coordinateFormat = NumberFormat.getIntegerInstance();
-        coordinateFormat.setMinimumIntegerDigits(1);
-        xOffsetField = new JFormattedTextField(coordinateFormat);
-        fileTabbedPane = new JTabbedPane();
-        JLabel yOffsetLabel = new JLabel();
-        yOffsetField = new JFormattedTextField(coordinateFormat);
+        NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+        integerFormat.setGroupingUsed(false);
+        integerFormat.setMinimumIntegerDigits(1);
+
+        JLabel xOffsetLabel = new JLabel(), yOffsetLabel = new JLabel(),
+                frameDelayLabel = new JLabel(), msLabel = new JLabel();
         JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu();
-        JMenuItem newMenuItem = new JMenuItem();
-        JMenuItem openMenuItem = new JMenuItem();
-        JMenuItem saveMenuItem = new JMenuItem();
-        JMenuItem saveAsMenuItem = new JMenuItem();
-        JMenuItem saveAllMenuItem = new JMenuItem();
-        JMenuItem exitMenuItem = new JMenuItem();
-        JMenu editMenu = new JMenu();
-        JMenuItem includeFileMenuItem = new JMenuItem();
-        JMenu viewMenu = new JMenu();
-        JMenuItem closeTabMenuItem = new JMenuItem();
-        JMenuItem closeAllTabsMenuItem = new JMenuItem();
-        JCheckBoxMenuItem lineNumCheckBox = new JCheckBoxMenuItem();
-        JCheckBoxMenuItem frameNumCheckBox = new JCheckBoxMenuItem();
-        JMenu runMenu = new JMenu();
-        JMenuItem circleTestMenuItem = new JMenuItem();
-        JMenuItem runMenuItem = new JMenuItem();
-        chooseWindowButton = new JButton("Choose Window...");
+        JMenu fileMenu = new JMenu(), editMenu = new JMenu(), viewMenu = new JMenu(), runMenu = new JMenu();
+        JMenuItem newMenuItem = new JMenuItem(), openMenuItem = new JMenuItem(), saveMenuItem = new JMenuItem(),
+                saveAsMenuItem = new JMenuItem(), saveAllMenuItem = new JMenuItem(), exitMenuItem = new JMenuItem(),
+                includeFileMenuItem = new JMenuItem(), closeTabMenuItem = new JMenuItem(),
+                closeAllTabsMenuItem = new JMenuItem(), circleTestMenuItem = new JMenuItem(),
+                runMenuItem = new JMenuItem();
+        JCheckBoxMenuItem lineNumCheckBox = new JCheckBoxMenuItem(), frameNumCheckBox = new JCheckBoxMenuItem();
+        JButton chooseWindowButton = new JButton("Choose Window...");
+
+        fileTabbedPane = new JTabbedPane();
+        xOffsetField = new JFormattedTextField(integerFormat);
+        yOffsetField = new JFormattedTextField(integerFormat);
+        frameDelayField = new JFormattedTextField(integerFormat);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("RhoIda");
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
+                closeAllTabs(null);
             }
         });
 
@@ -132,6 +126,15 @@ public final class MainFrame extends JFrame {
 
         yOffsetField.setFont(segoe12);
         yOffsetField.setText("0");
+
+        frameDelayField.setFont(segoe12);
+        frameDelayField.setText("16");
+
+        frameDelayLabel.setFont(segoe12);
+        frameDelayLabel.setText("Frame delay:");
+
+        msLabel.setFont(segoe12);
+        msLabel.setText("ms");
 
         chooseWindowButton.setFont(segoe12);
         chooseWindowButton.addActionListener(this::openWindowSelect);
@@ -355,6 +358,12 @@ public final class MainFrame extends JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(chooseWindowButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 154, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(frameDelayLabel)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(frameDelayField, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(msLabel))
                                 .addComponent(fileTabbedPane))
                         .addContainerGap())
         );
@@ -367,6 +376,11 @@ public final class MainFrame extends JFrame {
                                 .addComponent(yOffsetLabel)
                                 .addComponent(yOffsetField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(chooseWindowButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(5)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(frameDelayLabel)
+                                .addComponent(frameDelayField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(msLabel))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fileTabbedPane, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                         .addContainerGap())
@@ -388,7 +402,7 @@ public final class MainFrame extends JFrame {
         Object[] options = map.keySet().toArray();
         Object o = JOptionPane.showInputDialog(this, "Select the window to focus on", "Window Selection",
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if(o == null) return;
+        if (o == null) return;
 
         Rectangle rect = map.get(o.toString());
         xOffsetField.setValue(rect.x);
@@ -570,13 +584,14 @@ public final class MainFrame extends JFrame {
         Iterator<SimpleInstruction> iter = playback.iterator();
         InputPanel inputPanel = InputPanel.displayNewInputPanel(x, y, maxX + 10, maxY + 10);
 
+        int frameDelay = Integer.parseInt(frameDelayField.getText());
         running = new Thread(() -> {
             while (iter.hasNext()) {
                 SimpleInstruction ins = iter.next();
                 log.trace("executing instruction: {}", ins);
                 inputPanel.update(ins);
                 try {
-                    Thread.sleep(16);
+                    Thread.sleep(frameDelay);
                 } catch (InterruptedException e) {
                     log.warn("The sleep instruction was interrupted, continuing");
                 }
@@ -624,8 +639,9 @@ public final class MainFrame extends JFrame {
             return;
         }
 
+        int frameDelay = Integer.parseInt(frameDelayField.getText());
         try {
-            running = compiled.execute(new Robot(), 16);
+            running = compiled.execute(new Robot(), frameDelay);
         } catch (AWTException e) {
             log.warn("An exception was thrown while creating a Robot", e);
         }
