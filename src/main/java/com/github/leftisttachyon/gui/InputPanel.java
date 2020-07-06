@@ -132,6 +132,7 @@ public class InputPanel extends JPanel {
 //        log.info("grandparent: {}", inputPanel.getParent().getParent());
 //        log.info("great grandparent: {}", inputPanel.getParent().getParent().getParent());
 //        log.info("window ancestor: {}", SwingUtilities.getWindowAncestor(inputPanel));
+//        log.info("window ancestor a different way: {}", SwingUtilities.getAncestorOfClass(JWindow.class, inputPanel));
     }
 
     /**
@@ -145,15 +146,14 @@ public class InputPanel extends JPanel {
      */
     public static InputPanel displayNewInputPanel(int x, int y, int width, int height) {
         InputPanel inputPanel = new InputPanel(width, height);
-        SwingUtilities.invokeLater(() -> {
-            JWindow window = new JWindow();
-            window.add(inputPanel);
-            window.pack();
 
-            window.setOpacity(0.5f);
-            window.setLocation(x, y);
-            window.setVisible(true);
-        });
+        JWindow window = new JWindow();
+        window.add(inputPanel);
+        window.pack();
+
+        window.setOpacity(0.5f);
+        window.setLocation(x, y);
+        window.setVisible(true);
 
         return inputPanel;
     }

@@ -4,6 +4,8 @@ import com.github.leftisttachyon.input.InvalidFileFormatException;
 import com.github.leftisttachyon.input.SimpleInstruction;
 import com.github.leftisttachyon.input.SimplePlayback;
 import com.github.leftisttachyon.input.compiled.CompiledPlayback;
+import com.sun.jna.platform.DesktopWindow;
+import com.sun.jna.platform.WindowUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -49,6 +52,10 @@ public final class MainFrame extends JFrame {
      */
     private JFormattedTextField yOffsetField;
     /**
+     * A button that opens a pop to choose a window to input to.
+     */
+    private JButton chooseWindowButton;
+    /**
      * The currently running thread, if any
      */
     private Thread running;
@@ -75,7 +82,7 @@ public final class MainFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
         JLabel xOffsetLabel = new JLabel();
-        NumberFormat coordinateFormat = NumberFormat.getNumberInstance();
+        NumberFormat coordinateFormat = NumberFormat.getIntegerInstance();
         coordinateFormat.setMinimumIntegerDigits(1);
         xOffsetField = new JFormattedTextField(coordinateFormat);
         fileTabbedPane = new JTabbedPane();
@@ -99,6 +106,7 @@ public final class MainFrame extends JFrame {
         JMenu runMenu = new JMenu();
         JMenuItem circleTestMenuItem = new JMenuItem();
         JMenuItem runMenuItem = new JMenuItem();
+        chooseWindowButton = new JButton("Choose Window...");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("RhoIda");
@@ -124,6 +132,9 @@ public final class MainFrame extends JFrame {
 
         yOffsetField.setFont(segoe12);
         yOffsetField.setText("0");
+
+        chooseWindowButton.setFont(segoe12);
+        chooseWindowButton.addActionListener(this::openWindowSelect);
 
         fileMenu.setText("File");
         fileMenu.setMnemonic(VK_F);
@@ -341,6 +352,8 @@ public final class MainFrame extends JFrame {
                                         .addComponent(yOffsetLabel)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(yOffsetField, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chooseWindowButton, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 154, Short.MAX_VALUE))
                                 .addComponent(fileTabbedPane))
                         .addContainerGap())
@@ -352,7 +365,8 @@ public final class MainFrame extends JFrame {
                                 .addComponent(xOffsetLabel)
                                 .addComponent(xOffsetField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(yOffsetLabel)
-                                .addComponent(yOffsetField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(yOffsetField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(chooseWindowButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fileTabbedPane, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                         .addContainerGap())
@@ -360,6 +374,26 @@ public final class MainFrame extends JFrame {
 
         pack();
     }// </editor-fold>
+
+    private void openWindowSelect(ActionEvent evt) {
+        List<DesktopWindow> windows = WindowUtils.getAllWindows(true);
+        HashMap<String, Rectangle> map = new HashMap<>();
+        for (DesktopWindow window : windows) {
+            String title = window.getTitle();
+            if (!title.isEmpty()) {
+                map.put(title, window.getLocAndSize());
+            }
+        }
+
+        Object[] options = map.keySet().toArray();
+        Object o = JOptionPane.showInputDialog(this, "Select the window to focus on", "Window Selection",
+                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        if(o == null) return;
+
+        Rectangle rect = map.get(o.toString());
+        xOffsetField.setValue(rect.x);
+        yOffsetField.setValue(rect.y);
+    }
 
     private void previousTab(ActionEvent evt) {
         int idx = fileTabbedPane.getSelectedIndex() - 1;
@@ -539,7 +573,13 @@ public final class MainFrame extends JFrame {
         running = new Thread(() -> {
             while (iter.hasNext()) {
                 SimpleInstruction ins = iter.next();
+                log.trace("executing instruction: {}", ins);
                 inputPanel.update(ins);
+                try {
+                    Thread.sleep(16);
+                } catch (InterruptedException e) {
+                    log.warn("The sleep instruction was interrupted, continuing");
+                }
             }
             SwingUtilities.getWindowAncestor(inputPanel).dispose();
         }) {
@@ -579,7 +619,7 @@ public final class MainFrame extends JFrame {
             return;
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Please check the data of the file:\n" + nfe.getMessage(),
-                    "Badly file data", JOptionPane.WARNING_MESSAGE);
+                    "Bad file data", JOptionPane.WARNING_MESSAGE);
             log.info("NumberFormatException was thrown", nfe);
             return;
         }
@@ -627,7 +667,8 @@ public final class MainFrame extends JFrame {
     }
 
     private void stop(ActionEvent evt) {
-        if(running != null) running.interrupt();
+        log.info("running: {}", running);
+        if (running != null) running.interrupt();
     }
 
     private FileTab newFileTab() {
